@@ -104,6 +104,7 @@ const Projects = () => {
     if (project.title.includes('Resume Analyzer')) return "url('/images/CvAnalyZer.jpeg')";
     if (project.title.includes('CodeFixer')) return "url('/images/AiCodefixer.jpeg')";
     return "";
+    
   };
 
   return (
