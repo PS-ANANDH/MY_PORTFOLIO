@@ -14,7 +14,7 @@ const Projects = () => {
       category: "fullstack",
       github: "#",
       demo: "#",
-      image: "/images/DineHome.jpeg",
+      image: "./images/DineHome.jpeg",
       status: "completed"
     },
     {
@@ -25,7 +25,7 @@ const Projects = () => {
       category: "fullstack",
       github: "#",
       demo: "#",
-      image: "/images/CvAnalyZer.jpeg",
+      image: "./images/CvAnalyZer.jpeg",
       status: "completed"
     },
     {
@@ -36,7 +36,7 @@ const Projects = () => {
       category: "fullstack",
       github: "#",
       demo: "#",
-      image: "/images/AiCodefixer.jpeg",
+      image: "./images/AiCodefixer.jpeg",
       status: "completed"
     },
   ];
@@ -100,9 +100,9 @@ const Projects = () => {
 
   // Function to get background image path
   const getBackgroundImage = (project) => {
-    if (project.title.includes('DineHome')) return "url('/images/DineHome.jpeg')";
-    if (project.title.includes('Resume Analyzer')) return "url('/images/CvAnalyZer.jpeg')";
-    if (project.title.includes('CodeFixer')) return "url('/images/AiCodefixer.jpeg')";
+    if (project.title.includes('DineHome')) return "url('./images/DineHome.jpeg')";
+    if (project.title.includes('Resume Analyzer')) return "url('./images/CvAnalyZer.jpeg')";
+    if (project.title.includes('CodeFixer')) return "url('./images/AiCodefixer.jpeg')";
     return "";
     
   };

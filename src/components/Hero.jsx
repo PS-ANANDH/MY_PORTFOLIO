@@ -150,7 +150,7 @@ const Hero = () => {
 >
   {/* Profile Photo */}
   <motion.img
-    src="/images/Me.jpeg"
+    src="./images/Me.jpeg"
     alt="Selva Anandh"
     className="profile-photo"
     initial={{ opacity: 0, scale: 0 }}

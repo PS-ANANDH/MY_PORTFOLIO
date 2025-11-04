@@ -611,4 +611,41 @@ body {
 /* But ensure they're visible when in view */
 .motion-element.visible {
   opacity: 1;
+}/* Make all body text bolder for better readability */
+body {
+    font-weight: 500 !important;
+}
+
+/* Make paragraphs and regular text bolder */
+p, span, div {
+    font-weight: 500 !important;
+}
+
+/* Make specific text elements bolder */
+.text-white,
+.text-green-300,
+.text-green-400,
+.text-green-500,
+.text-gray-300,
+.text-cyan-400,
+.font-mono {
+    font-weight: 500 !important;
+}
+
+/* Keep headings bold (they're already bold) */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700 !important;
+}
+
+/* Make navigation and button text bolder */
+.nav-button,
+.anime-button,
+.download-resume-btn {
+    font-weight: 600 !important;
+}
+
+/* Make project descriptions and lists bolder */
+.terminal-glass p,
+.terminal-glass li {
+    font-weight: 500 !important;
 }
