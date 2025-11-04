@@ -86,7 +86,7 @@ useEffect(() => {
         >
           <div className="code-keyword">function</div>
           <div className="code-function"> sendMessage</div>() {'{'}
-          <div className="code-comment">// メッセージを送信</div>
+          <div className="code-comment">{"// メッセージを送信"}</div>
           <div className="code-keyword">return</div> 
           <div className="code-string">"Success! 🎉"</div>;
           {'}'}
@@ -104,7 +104,7 @@ useEffect(() => {
             ease: "easeInOut"
           }}
         >
-          <div className="code-comment">/* 連絡を取ろう */</div>
+         <div className="code-comment">{"// メッセージを送信"}</div>
           <div className="code-keyword">const</div> 
           <div className="code-function"> contact</div> = {'{'}
           <div className="code-string">email</div>: 

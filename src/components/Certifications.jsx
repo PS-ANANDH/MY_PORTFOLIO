@@ -81,7 +81,7 @@ const Certifications = () => {
         >
           <div className="code-keyword">class</div>
           <div className="code-function"> Certifications</div> {'{'}
-          <div className="code-comment">// Skills Validation</div>
+          <div className="code-comment">{"// Skills Validation"}</div>
           <div className="code-keyword">constructor</div>() {'{'}
           <div className="code-keyword">this</div>.
           <div className="code-function">certs</div> = [

@@ -98,7 +98,7 @@ const WorkExperience = () => {
         >
           <div className="code-keyword">class</div>
           <div className="code-function"> Experience</div> {'{'}
-          <div className="code-comment">// Professional Journey</div>
+          <div className="code-comment">{"// Professional Journey"}</div>
           <div className="code-keyword">constructor</div>() {'{'}
           <div className="code-keyword">this</div>.
           <div className="code-function">roles</div> = [
@@ -120,7 +120,7 @@ const WorkExperience = () => {
             ease: "easeInOut"
           }}
         >
-          <div className="code-comment">/* 経験と成長 */</div>
+          <div className="code-comment">{"/* 経験と成長 */"}</div>
           <div className="code-keyword">const</div> 
           <div className="code-function"> experience</div> = {'{'}
           <div className="code-string">"learning"</div>: 

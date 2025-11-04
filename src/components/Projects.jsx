@@ -138,7 +138,7 @@ const Projects = () => {
         >
           <div className="code-keyword">class</div>
           <div className="code-function"> Project</div> {'{'}
-          <div className="code-comment">// プロジェクト詳細</div>
+          <div className="code-comment">{"// プロジェクト詳細"}</div>
           <div className="code-keyword">constructor</div>() {'{'}
           <div className="code-keyword">this</div>.
           <div className="code-function">tech</div> = [
@@ -160,11 +160,11 @@ const Projects = () => {
             ease: "easeInOut"
           }}
         >
-          <div className="code-comment">/* コードを書く情熱 */</div>
+          <div className="code-comment">{"/* コードを書く情熱 */"}</div>
           <div className="code-keyword">public</div> 
           <div className="code-function">void</div> 
           <div className="code-function">develop</div>() {'{'}
-          <div className="code-comment">// 創造性と技術</div>
+          <div className="code-comment">{"// 創造性と技術"}</div>
           <div className="code-function">System.out.println</div>(
           <div className="code-string">"Building amazing projects! 💻"</div>);
           {'}'}

@@ -78,7 +78,7 @@ const Hero = () => {
         >
           <div className="code-keyword">class</div>
           <div className="code-function"> Developer</div> {'{'}
-          <div className="code-comment">// Passionate coder</div>
+          <div className="code-comment">{"// Passionate coder"}</div>
           <div className="code-keyword">constructor</div>() {'{'}
           <div className="code-keyword">this</div>.
           <div className="code-function">skills</div> = [
@@ -100,11 +100,11 @@ const Hero = () => {
             ease: "easeInOut"
           }}
         >
-          <div className="code-comment">/* バックエンドマスター */</div>
+          <div className="code-comment">{"/* バックエンドマスター */"}</div>
           <div className="code-keyword">public</div> 
           <div className="code-function">void</div> 
           <div className="code-function">code</div>() {'{'}
-          <div className="code-comment">// 情熱を込めて</div>
+          <div className="code-comment">{"// 情熱を込めて"}</div>
           <div className="code-function">System.out.println</div>(
           <div className="code-string">"Hello World! 🚀"</div>);
           {'}'}

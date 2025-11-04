@@ -1,8 +1,10 @@
 import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
 const Footer = () => {
   const backgroundRef = useRef(null);
+   const [showMessage, setShowMessage] = useState(false);
 
  useEffect(() => {
   const handleMouseMove = (e) => {
@@ -58,11 +60,11 @@ const Footer = () => {
             ease: "easeInOut"
           }}
         >
-          <div className="code-comment">/* 最後のメッセージ */</div>
+          <div className="code-comment">{"/* 最後のメッセージ */"}</div>
           <div className="code-keyword">export</div> 
           <div className="code-keyword">default</div> 
           <div className="code-function"> Footer</div>;
-          <div className="code-comment">// さようなら 👋</div>
+          <div className="code-comment">{"// さようなら 👋"}</div>
         </motion.div>
 
         <motion.div
@@ -96,7 +98,7 @@ const Footer = () => {
             ease: "easeInOut"
           }}
         >
-          <div className="code-comment">// また会う日まで</div>
+          <div className="code-comment">{"// また会う日まで"}</div>
           <div className="code-keyword">const</div> 
           <div className="code-function"> goodbye</div> = 
           <div className="code-string">"See you next project! 💫"</div>;
@@ -165,12 +167,12 @@ const Footer = () => {
     { 
       name: 'Twitter', 
       icon: '🐦', 
-      url: 'https://twitter.com/yourusername' 
+      url: 'https://x.com/PSANANDH6' 
     },
     { 
       name: 'Discord', 
       icon: '🎮', 
-      url: 'https://discord.com/users/yourid' 
+      url: 'https://support.discord.com/hc/en-us/profiles/36093442166423' 
     },
     { 
       name: 'Email', 

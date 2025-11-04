@@ -74,7 +74,7 @@ const Education = () => {
         >
           <div className="code-keyword">class</div>
           <div className="code-function"> Education</div> {'{'}
-          <div className="code-comment">// Academic Journey</div>
+          <div className="code-comment">{"// Academic Journey"}</div>
           <div className="code-keyword">constructor</div>() {'{'}
           <div className="code-keyword">this</div>.
           <div className="code-function">degrees</div> = [
@@ -96,7 +96,7 @@ const Education = () => {
             ease: "easeInOut"
           }}
         >
-          <div className="code-comment">/* 学問の道 */</div>
+          <div className="code-comment">{"/* 学問の道 */"}</div>
           <div className="code-keyword">const</div> 
           <div className="code-function"> knowledge</div> = {'{'}
           <div className="code-string">"pursuit"</div>: 
