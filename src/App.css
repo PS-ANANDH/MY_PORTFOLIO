@@ -1084,4 +1084,20 @@ section:hover {
     .download-resume-btn {
         margin-left: 60px !important;
     }
+}/* Fix download resume button for mobile */
+@media (max-width: 768px) {
+    .download-resume-btn {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        display: block !important;
+        text-align: center !important;
+        width: 90% !important;
+        max-width: 200px !important;
+    }
+    
+    /* Ensure navbar layout doesn't break on mobile */
+    .navbar-center-container {
+        flex-direction: column !important;
+        gap: 10px !important;
+    }
 }
