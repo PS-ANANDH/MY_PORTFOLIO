@@ -1,13 +1,614 @@
-body {
+/* index.css - Global Styles with Fixed Tailwind Imports */
+
+/* Tailwind CSS Directives - FIXED */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Font Faces */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap');
+
+/* Base Styles */
+:root {
+  --neon-green: #00ff88;
+  --neon-cyan: #00ccff;
+  --neon-pink: #ff00ff;
+  --neon-purple: #9933ff;
+  --dark-bg: #000000;
+  --darker-bg: #0a0a0a;
+}
+
+* {
+  box-sizing: border-box;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--dark-bg);
+}
+
+body {
+  font-family: 'Courier New', 'Monaco', 'Menlo', monospace;
+  background: var(--dark-bg);
+  color: var(--neon-green);
+  overflow-x: hidden;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Matrix Rain - Simple and Reliable */
+@keyframes matrixFall {
+  0% {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+  5% {
+    opacity: 0.2;
+  }
+  95% {
+    opacity: 0.2;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+#matrix-rain-container {
+  position: fixed !important;
+  top: 0 !important;
+  opacity: 10;
+  left: 0 !important;
+  width: 50vw !important;
+  height: 50vh !important;
+  z-index: 9998 !important;
+  pointer-events: none !important;
+  overflow: hidden !important;
+}
+
+/* Binary Stream Effect */
+.binary-stream {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 1px,
+      rgba(0, 255, 136, 0.03) 2px,
+      rgba(0, 255, 136, 0.03) 4px
+    );
+  animation: binaryFlow 20s linear infinite;
+  z-index: -2;
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+@keyframes binaryFlow {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 100vh;
+  }
+}
+
+/* Circuit Board Grid */
+.circuit-grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(0, 255, 136, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 136, 0.1) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: circuitPulse 8s ease-in-out infinite;
+  z-index: -2;
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+@keyframes circuitPulse {
+  0%, 100% { opacity: 0.1; }
+  50% { opacity: 0.3; }
+}
+
+/* Floating Code Snippets - BACKGROUND VERSION */
+.floating-code {
+  position: fixed;
+  background: rgba(0, 255, 136, 0.03); /* Very transparent */
+  border: 1px solid rgba(0, 255, 136, 0.1); /* Very faint border */
+  border-radius: 12px;
+  padding: 12px;
+  font-family: 'Courier New', monospace;
+  font-size: 11px; /* Smaller */
+  color: rgba(0, 255, 136, 0.4); /* Low opacity */
+  opacity: 0;
+  animation: codeFloat 30s ease-in-out infinite; /* Slower */
+  z-index: -1; /* BEHIND content */
+  pointer-events: none;
+  backdrop-filter: blur(2px); /* Very subtle blur */
+  box-shadow: 
+    0 0 10px rgba(0, 255, 136, 0.05), /* Very subtle glow */
+    inset 0 0 10px rgba(0, 255, 136, 0.02);
+}
+
+/* Even lower opacity for syntax highlighting */
+.code-keyword { color: rgba(255, 107, 157, 0.3); font-weight: bold; }
+.code-function { color: rgba(107, 194, 255, 0.3); }
+.code-string { color: rgba(168, 255, 96, 0.3); }
+.code-comment { color: rgba(102, 102, 102, 0.3); font-style: italic; }
+
+/* Position them further from center */
+.code-1 {
+  top: 10%;
+  left: 5%;
+  animation-delay: 0s;
+  width: 160px;
+}
+
+.code-2 {
+  top: 15%;
+  right: 8%;
+  animation-delay: -10s;
+  width: 140px;
+}
+
+.code-3 {
+  bottom: 20%;
+  left: 10%;
+  animation-delay: -20s;
+  width: 180px;
+}
+
+.code-4 {
+  bottom: 15%;
+  right: 5%;
+  animation-delay: -15s;
+  width: 150px;
+}
+
+@keyframes codeFloat {
+  0%, 100% {
+    transform: 
+      translate3d(0, 0, 0) 
+      rotate(0deg)
+      scale(0.9); /* Smaller */
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.3; /* Lower peak opacity */
+  }
+  35% {
+    transform: 
+      translate3d(30px, -20px, 0) 
+      rotate(3deg)
+      scale(1);
+  }
+  65% {
+    transform: 
+      translate3d(-15px, 25px, 0) 
+      rotate(-2deg)
+      scale(0.95);
+    opacity: 0.4;
+  }
+  85% {
+    transform: 
+      translate3d(-25px, -15px, 0) 
+      rotate(1deg)
+      scale(1);
+  }
+}
+
+/* Syntax Highlighting for Floating Code */
+.code-keyword { color: #ff6b9d; font-weight: bold; }
+.code-function { color: #6bc2ff; }
+.code-string { color: #a8ff60; }
+.code-comment { color: #666; font-style: italic; }
+.code-number { color: #ffd166; }
+
+
+/* Data Particles */
+.data-particle {
+  position: fixed;
+  background: #00ff88;
+  border-radius: 50%;
+  opacity: 0;
+  animation: dataFlow 6s ease-in-out infinite;
+  z-index: -1;
+  pointer-events: none;
+  box-shadow: 0 0 10px #00ff88;
+}
+
+.particle-1 { top: 10%; left: 5%; animation-delay: 0s; width: 3px; height: 3px; }
+.particle-2 { top: 30%; left: 20%; animation-delay: -1s; width: 2px; height: 2px; }
+.particle-3 { top: 50%; left: 80%; animation-delay: -2s; width: 4px; height: 4px; }
+.particle-4 { top: 70%; left: 60%; animation-delay: -3s; width: 2px; height: 2px; }
+.particle-5 { top: 20%; left: 90%; animation-delay: -4s; width: 3px; height: 3px; }
+.particle-6 { top: 80%; left: 10%; animation-delay: -5s; width: 2px; height: 2px; }
+
+@keyframes dataFlow {
+  0% {
+    transform: translateY(100vh) translateX(-50px) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(-100px) translateX(50px) scale(1);
+    opacity: 0;
+  }
+}
+
+/* Anime-style Typography Effects */
+.anime-glow {
+  text-shadow: 
+    0 0 5px #00ff88,
+    0 0 10px #00ff88,
+    0 0 15px #00ff88,
+    0 0 20px #00ff88,
+    0 0 35px #00ff88,
+    0 0 40px #00ff88,
+    0 0 50px #00ff88;
+}
+
+.cyber-text {
+  background: linear-gradient(135deg, #00ff88 0%, #6bc2ff 50%, #ff6b9d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 
+    0 0 30px rgba(0, 255, 136, 0.5),
+    0 0 60px rgba(107, 194, 255, 0.3);
+  animation: textShine 3s ease-in-out infinite;
+}
+
+@keyframes textShine {
+  0%, 100% { 
+    filter: hue-rotate(0deg);
+    background-position: 0% 50%;
+  }
+  50% { 
+    filter: hue-rotate(45deg);
+    background-position: 100% 50%;
+  }
+}
+
+.neon-cyan {
+  color: #00ff88;
+  text-shadow: 
+    0 0 5px #00ff88,
+    0 0 10px #00ff88,
+    0 0 15px #00ff88,
+    0 0 20px #00ff88,
+    0 0 35px #00ff88,
+    0 0 40px #00ff88;
+}
+
+.neon-pink {
+  color: #ff6b9d;
+  text-shadow: 
+    0 0 5px #ff6b9d,
+    0 0 10px #ff6b9d,
+    0 0 15px #ff6b9d,
+    0 0 20px #ff6b9d,
+    0 0 35px #ff6b9d,
+    0 0 40px #ff6b9d;
+}
+
+
+
+/* Terminal Glass Morphism */
+.terminal-glass {
+  background: rgba(0, 20, 10, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  border-radius: 16px;
+  box-shadow:
+    0 0 20px rgba(0, 255, 136, 0.2),
+    inset 0 0 15px rgba(0, 255, 136, 0.1);
+}
+
+/* Anime Button */
+.anime-button {
+  background: rgba(0, 255, 136, 0.1);
+  border: 2px solid #00ff88;
+  color: #00ff88;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.anime-button:hover {
+  background: rgba(0, 255, 136, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+}
+
+.anime-button:active {
+  transform: translateY(0);
+}
+
+/* Hover Glow Effect */
+.hover-glow:hover {
+  box-shadow: 
+    0 0 20px rgba(0, 255, 136, 0.6),
+    0 0 40px rgba(0, 255, 136, 0.4),
+    0 0 60px rgba(0, 255, 136, 0.2);
+}
+
+/* Terminal Loader */
+.terminal-loader {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(0, 255, 136, 0.3);
+  border-top: 2px solid #00ff88;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 15, 8, 0.8);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #00ff88, #6bc2ff);
+  border-radius: 5px;
+  border: 2px solid rgba(0, 15, 8, 0.8);
+  box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #00cc6a, #4da6ff);
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.7);
+}
+
+/* Selection Styles */
+::selection {
+  background: rgba(0, 255, 136, 0.3);
+  color: #000;
+}
+
+::-moz-selection {
+  background: rgba(0, 255, 136, 0.3);
+  color: #000;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .floating-code {
+    transform: scale(0.6);
+    opacity: 0.4;
+  }
+  
+  .code-1, .code-4 {
+    display: none;
+  }
+  
+  .matrix-character {
+    font-size: 10px;
+  }
+  
+  .circuit-grid {
+    background-size: 60px 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .floating-code {
+    display: none;
+  }
+  
+  .data-particle {
+    display: none;
+  }
+  
+ 
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}/* Get In Touch Button - Match Hire Me Style */
+.get-in-touch-button {
+  background: linear-gradient(45deg, rgba(0, 255, 136, 0.9), rgba(0, 204, 255, 0.8)) !important;
+  border: 2px solid #00ff88 !important;
+  color: #000000 !important;
+  padding: 14px 28px !important;
+  border-radius: 10px !important;
+  font-family: 'Courier New', monospace !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  transition: all 0.3s ease !important;
+  cursor: pointer !important;
+  text-align: center !important;
+  position: relative !important;
+  overflow: hidden !important;
+  font-size: 16px !important;
+  box-shadow: 
+    0 0 25px rgba(0, 255, 136, 0.6),
+    0 0 40px rgba(0, 204, 255, 0.4) !important;
+}
+
+.get-in-touch-button:hover {
+  background: linear-gradient(45deg, rgba(0, 255, 136, 1), rgba(0, 204, 255, 0.9)) !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 
+    0 0 35px rgba(0, 255, 136, 0.8),
+    0 0 60px rgba(0, 204, 255, 0.6),
+    0 10px 25px rgba(0, 0, 0, 0.3) !important;
+  color: #000000 !important;
+  border-color: #00ff88 !important;
+}
+
+.get-in-touch-button:active {
+  transform: translateY(-1px) !important;
+}/* Update base anime-button class as backup */
+.anime-button {
+  background: linear-gradient(45deg, rgba(0, 255, 136, 0.9), rgba(0, 204, 255, 0.8)) !important;
+  border: 2px solid #00ff88 !important;
+  color: #000000 !important;
+  padding: 14px 28px !important;
+  border-radius: 10px !important;
+  font-family: 'Courier New', monospace !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  transition: all 0.3s ease !important;
+  cursor: pointer !important;
+  text-align: center !important;
+  position: relative !important;
+  overflow: hidden !important;
+  font-size: 16px !important;
+  box-shadow: 
+    0 0 25px rgba(0, 255, 136, 0.6),
+    0 0 40px rgba(0, 204, 255, 0.4) !important;
+}
+
+.anime-button:hover {
+  background: linear-gradient(45deg, rgba(0, 255, 136, 1), rgba(0, 204, 255, 0.9)) !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 
+    0 0 35px rgba(0, 255, 136, 0.8),
+    0 0 60px rgba(0, 204, 255, 0.6),
+    0 10px 25px rgba(0, 0, 0, 0.3) !important;
+  color: #000000 !important;
+}
+/* Navigation Buttons - Match Hire Me Style */
+.nav-button, .nav-button-mobile {
+  background: linear-gradient(45deg, rgba(0, 255, 136, 0.9), rgba(0, 204, 255, 0.8)) !important;
+  border: 2px solid #00ff88 !important;
+  color: #000000 !important;
+  border-radius: 8px !important;
+  font-family: 'Courier New', monospace !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  transition: all 0.3s ease !important;
+  cursor: pointer !important;
+  text-align: center !important;
+  position: relative !important;
+  overflow: hidden !important;
+  box-shadow: 
+    0 0 20px rgba(0, 255, 136, 0.5),
+    0 0 30px rgba(0, 204, 255, 0.3) !important;
+}
+
+.nav-button:hover, .nav-button-mobile:hover {
+  background: linear-gradient(45deg, rgba(0, 255, 136, 1), rgba(0, 204, 255, 0.9)) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 
+    0 0 25px rgba(0, 255, 136, 0.7),
+    0 0 40px rgba(0, 204, 255, 0.5),
+    0 5px 15px rgba(0, 0, 0, 0.2) !important;
+  color: #000000 !important;
+}
+
+.nav-button-active {
+  background: linear-gradient(45deg, rgba(0, 255, 136, 1), rgba(0, 204, 255, 0.9)) !important;
+  box-shadow: 
+    0 0 25px rgba(0, 255, 136, 0.8),
+    0 0 40px rgba(0, 204, 255, 0.6),
+    inset 0 0 10px rgba(0, 255, 136, 0.2) !important;
+}
+
+.nav-button-inactive {
+  background: linear-gradient(45deg, rgba(0, 255, 136, 0.8), rgba(0, 204, 255, 0.7)) !important;
+}
+
+/* Hire Me Button Style */
+.anime-button-hire {
+  background: linear-gradient(45deg, rgba(0, 255, 136, 0.9), rgba(0, 204, 255, 0.8)) !important;
+  border: 2px solid #00ff88 !important;
+  color: #000000 !important;
+  border-radius: 8px !important;
+  font-family: 'Courier New', monospace !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  transition: all 0.3s ease !important;
+  cursor: pointer !important;
+  text-align: center !important;
+  position: relative !important;
+  overflow: hidden !important;
+  box-shadow: 
+    0 0 20px rgba(0, 255, 136, 0.5),
+    0 0 30px rgba(0, 204, 255, 0.3) !important;
+}
+
+.anime-button-hire:hover {
+  background: linear-gradient(45deg, rgba(0, 255, 136, 1), rgba(0, 204, 255, 0.9)) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 
+    0 0 25px rgba(0, 255, 136, 0.7),
+    0 0 40px rgba(0, 204, 255, 0.5),
+    0 5px 15px rgba(0, 0, 0, 0.2) !important;
+  color: #000000 !important;
+}
+/* Clean initial load fix */
+.section-container {
+  opacity: 1 !important;
+  visibility: visible !important;
+}/* CSS-based animations that won't conflict */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section-animate {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+/* Fix for Framer Motion initial states */
+.motion-element {
+  opacity: 0;
+}
+
+/* But ensure they're visible when in view */
+.motion-element.visible {
+  opacity: 1;
 }

@@ -1,38 +1,1064 @@
-.App {
-  text-align: center;
+/* App.css - Fixed Cyber Anime Portfolio Styles */
+
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Courier New', 'Monaco', 'Menlo', monospace;
+  background: #000000;
+  color: #00ff88;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+/* Fix Hire Me button to follow scroll */
+.navbar-hire-button {
+  position: fixed !important;
+  top: 1.5rem !important;
+  right: 1.5rem !important;
+  z-index: 1000 !important;
+}
+
+.navbar-hire-button .nav-button {
+  padding: 16px 32px !important;
+  font-size: 16px !important;
+  min-width: 140px !important;
+  font-weight: 800 !important;
+  background: linear-gradient(45deg, rgba(0, 255, 136, 0.9), rgba(0, 204, 255, 0.8)) !important;
+  border: 2px solid #00ff88 !important;
+  color: #000000 !important;
+  border-radius: 10px !important;
+  box-shadow: 
+    0 0 25px rgba(0, 255, 136, 0.6),
+    0 0 40px rgba(0, 204, 255, 0.4) !important;
+}
+
+.navbar-hire-button .nav-button:hover {
+  background: linear-gradient(45deg, rgba(0, 255, 136, 1), rgba(0, 204, 255, 0.9)) !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 
+    0 0 35px rgba(0, 255, 136, 0.8),
+    0 0 60px rgba(0, 204, 255, 0.6),
+    0 10px 25px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #00ff88, #00ccff);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #00ccff, #00ff88);
+}
+/* Red Neon Blink effect for Hire Me button */
+.navbar-hire-button .nav-button {
+  animation: redBlink 1.5s ease-in-out infinite;
+}
+
+@keyframes redBlink {
+  0%, 100% {
+    box-shadow: 
+      0 0 10px rgba(255, 0, 0, 0.8),
+      0 0 20px rgba(255, 0, 0, 0.6),
+      0 0 30px rgba(255, 0, 0, 0.4),
+      inset 0 0 10px rgba(255, 0, 0, 0.2);
+    border-color: #ff0000 !important;
+  }
+  50% {
+    box-shadow: 
+      0 0 20px rgba(255, 0, 0, 1),
+      0 0 40px rgba(255, 0, 0, 0.8),
+      0 0 60px rgba(255, 0, 0, 0.6),
+      0 0 80px rgba(255, 0, 0, 0.4),
+      inset 0 0 15px rgba(255, 0, 0, 0.3);
+    border-color: #ff4444 !important;
+  }
+}
+
+
+/* Cyber Text Effects */
+.cyber-text {
+  background: linear-gradient(45deg, #00ff88, #00ccff, #ff00ff, #00ff88);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: cyberGradient 6s ease infinite;
+  text-shadow: 
+    0 0 10px rgba(0, 255, 136, 0.3),
+    0 0 20px rgba(0, 255, 136, 0.2),
+    0 0 30px rgba(0, 255, 136, 0.1);
+}
+
+@keyframes cyberGradient {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Anime Glow Effect */
+.anime-glow {
+  position: relative;
+}
+
+.anime-glow::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, #00ff88, #00ccff, #ff00ff);
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  filter: blur(20px);
+}
+
+.anime-glow:hover::after {
+  opacity: 0.6;
+}
+
+/* Terminal Glass Effect */
+.terminal-glass {
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(0, 255, 136, 0.2);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.terminal-glass::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 255, 136, 0.1) 0%,
+    rgba(0, 204, 255, 0.05) 50%,
+    rgba(255, 0, 255, 0.1) 100%
+  );
+  z-index: -1;
+}
+
+/* Binary Stream Animation */
+.binary-stream {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 255, 136, 0.03) 2px,
+      rgba(0, 255, 136, 0.03) 4px
+    );
+  animation: binaryScroll 20s linear infinite;
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+@keyframes binaryScroll {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+/* Circuit Grid */
+.circuit-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(0, 255, 136, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 136, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: gridPulse 8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes gridPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+
+/* Floating Code Elements */
+.floating-code {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.9);
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  border-radius: 8px;
+  padding: 12px;
+  font-family: 'Monaco', 'Menlo', monospace;
+  font-size: 10px;
+  line-height: 1.4;
+  color: #00ff88;
+  z-index: 1;
+  backdrop-filter: blur(100px);
+  box-shadow: 
+    0 0 20px rgba(0, 255, 136, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+}
+
+.code-keyword { color: #ff6b6b; }
+.code-function { color: #4ecdc4; }
+.code-string { color: #ffe66d; }
+.code-comment { color: #6a89cc; font-style: italic; }
+
+.floating-code.code-1 { top: 10%; left: 10%; }
+.floating-code.code-2 { top: 60%; right: 15%; }
+.floating-code.code-3 { bottom: 30%; left: 20%; }
+
+/* Data Particles */
+.data-particle {
+  position: absolute;
+  background: #00ff88;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  box-shadow: 
+    0 0 10px #00ff88,
+    0 0 20px #00ff88,
+    0 0 30px #00ff88;
+}
+
+.data-particle.particle-1 {
+  width: 3px;
+  height: 3px;
+  top: 15%;
+  left: 20%;
+  animation: particleFloat1 8s ease-in-out infinite;
+}
+
+.data-particle.particle-2 {
+  width: 2px;
+  height: 2px;
+  top: 40%;
+  right: 25%;
+  animation: particleFloat2 6s ease-in-out infinite 1s;
+}
+
+.data-particle.particle-3 {
+  width: 4px;
+  height: 4px;
+  bottom: 20%;
+  left: 30%;
+  animation: particleFloat3 10s ease-in-out infinite 2s;
+}
+
+.data-particle.particle-4 {
+  width: 2px;
+  height: 2px;
+  top: 60%;
+  left: 15%;
+  animation: particleFloat4 7s ease-in-out infinite 0.5s;
+}
+
+.data-particle.particle-5 {
+  width: 3px;
+  height: 3px;
+  bottom: 40%;
+  right: 20%;
+  animation: particleFloat5 9s ease-in-out infinite 1.5s;
+}
+
+.data-particle.particle-6 {
+  width: 2px;
+  height: 2px;
+  top: 25%;
+  right: 30%;
+  animation: particleFloat6 5s ease-in-out infinite 0.8s;
+}
+
+@keyframes particleFloat1 {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.7; }
+  25% { transform: translate(20px, -30px) scale(1.2); opacity: 1; }
+  50% { transform: translate(40px, 10px) scale(0.8); opacity: 0.5; }
+  75% { transform: translate(10px, 40px) scale(1.1); opacity: 0.9; }
+}
+
+@keyframes particleFloat2 {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+  33% { transform: translate(-25px, -20px) scale(1.3); opacity: 1; }
+  66% { transform: translate(15px, 25px) scale(0.7); opacity: 0.4; }
+}
+
+@keyframes particleFloat3 {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.8; }
+  20% { transform: translate(30px, -15px) scale(1.4); opacity: 1; }
+  40% { transform: translate(-20px, 20px) scale(0.6); opacity: 0.3; }
+  60% { transform: translate(25px, 30px) scale(1.1); opacity: 0.9; }
+  80% { transform: translate(-15px, -25px) scale(0.9); opacity: 0.5; }
+}
+
+@keyframes particleFloat4 {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.5; }
+  50% { transform: translate(-30px, 15px) scale(1.5); opacity: 1; }
+}
+
+@keyframes particleFloat5 {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.7; }
+  25% { transform: translate(15px, -25px) scale(1.1); opacity: 0.9; }
+  50% { transform: translate(-20px, 10px) scale(0.8); opacity: 0.4; }
+  75% { transform: translate(25px, 20px) scale(1.2); opacity: 1; }
+}
+
+@keyframes particleFloat6 {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+  33% { transform: translate(-15px, -30px) scale(1.3); opacity: 1; }
+  66% { transform: translate(20px, 15px) scale(0.7); opacity: 0.3; }
+}
+
+/* Anime Button */
+.anime-button {
+  background: linear-gradient(45deg, #00ff88, #00ccff);
+  border: none;
+  border-radius: 12px;
+  padding: 16px 32px;
+  color: #000;
+  font-weight: bold;
+  font-family: 'Courier New', monospace;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 0 20px rgba(0, 255, 136, 0.4),
+    0 0 40px rgba(0, 204, 255, 0.2);
+}
+
+.anime-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.anime-button:hover::before {
+  left: 100%;
+}
+
+.anime-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 0 30px rgba(0, 255, 136, 0.6),
+    0 0 60px rgba(0, 204, 255, 0.4);
+}
+
+.anime-button:active {
+  transform: translateY(0);
+}
+
+
+/* Hover Glow Effect */
+.hover-glow {
+  transition: all 0.3s ease;
+}
+
+.hover-glow:hover {
+  box-shadow: 
+    0 0 15px rgba(0, 255, 136, 0.4),
+    0 0 30px rgba(0, 255, 136, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+
+/* Neon Colors */
+.neon-cyan {
+  color: #00ccff;
+  text-shadow: 
+    0 0 5px #00ccff,
+    0 0 10px #00ccff,
+    0 0 15px #00ccff,
+    0 0 20px #00ccff;
+}
+
+.neon-pink {
+  color: #ff00ff;
+  text-shadow: 
+    0 0 5px #ff00ff,
+    0 0 10px #ff00ff,
+    0 0 15px #ff00ff,
+    0 0 20px #ff00ff;
+}
+
+.neon-green {
+  color: #00ff88;
+  text-shadow: 
+    0 0 5px #00ff88,
+    0 0 10px #00ff88,
+    0 0 15px #00ff88,
+    0 0 20px #00ff88;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .cyber-text {
+    font-size: 3rem !important;
+  }
+  
+  .terminal-glass {
+    margin: 0 1rem;
+    padding: 1.5rem;
+  }
+  
+  .floating-code {
+    display: none;
+  }
+  
+  .data-particle {
+    display: none;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Performance Optimizations */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus States for Accessibility */
+button:focus,
+a:focus {
+  outline: 2px solid #00ff88;
+  outline-offset: 2px;
+}
+
+/* Selection Colors */
+::selection {
+  background: rgba(0, 255, 136, 0.3);
+  color: #00ff88;
+}
+
+::-moz-selection {
+  background: rgba(0, 255, 136, 0.3);
+  color: #00ff88;
+}
+
+/* Loading States */
+.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Print Styles */
+@media print {
+  .terminal-glass,
+  .floating-code,
+  .data-particle,
+  .terminal-cursor {
+    display: none;
+  }
+  
+  body {
+    color: #000;
+    background: #fff;
+  }
+}
+.neon-glow {
+  text-shadow: 
+    0 0 5px #00ff88,
+    0 0 10px #00ff88,
+    0 0 15px #00ff88,
+    0 0 20px #00ff88;
+  transition: all 0.3s ease;
+}
+/* Back to Top button centering fix */
+.back-to-top-container {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+}
+
+.back-to-top-button {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center !important;
+}
+/* Navbar centering fix - same as Back to Top */
+.navbar-center-container {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+}
+
+.navbar-buttons-container {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+}
+.debug-red {
+  border: 2px solid red !important;
+}
+
+.debug-blue {
+  border: 2px solid blue !important;
+}
+
+.debug-green {
+  border: 2px solid green !important;
+}
+/* Force center About Me text */
+.text-6xl.md\:text-8xl.font-bold.mb-8.cyber-text.anime-glow {
+  text-align: center !important;
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 100% !important;
+  text-size-adjust: 10px;
+}
+
+/* Alternative stronger CSS */
+.about-me-heading {
+  text-align: center !important;
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 100% !important;
+}
+/* Force center all section headings */
+.text-5xl.md\:text-7xl.font-bold.mb-6.cyber-text.anime-glow,
+.text-6xl.md\:text-8xl.font-bold.mb-8.cyber-text.anime-glow,
+.text-5xl.md\:text-7xl.font-bold.mb-6.cyber-text {
+  text-align: center !important;
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 100% !important;
+}
+
+/* Center section headings */
+.section-heading {
+  text-align: center !important;
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 100% !important;
+}
+/* Modern Contact Form Styles */
+.contact-input {
+  background: rgba(0, 0, 0, 0.8) !important;
+  border: 2px solid #00ff88 !important;
+  border-radius: 12px !important;
+  padding: 16px 20px !important;
+  color: #00ff88 !important;
+  font-family: 'Courier New', monospace !important;
+  font-size: 16px !important;
+  transition: all 0.3s ease !important;
+  backdrop-filter: blur(10px) !important;
+  box-shadow: 
+    0 0 15px rgba(0, 255, 136, 0.3),
+    inset 0 0 10px rgba(0, 255, 136, 0.1) !important;
+}
+
+.contact-input::placeholder {
+  color: rgba(0, 255, 136, 0.6) !important;
+  font-family: 'Courier New', monospace !important;
+}
+
+.contact-input:focus {
+  border-color: #00ccff !important;
+  background: rgba(0, 10, 20, 0.9) !important;
+  box-shadow: 
+    0 0 25px rgba(0, 255, 136, 0.6),
+    0 0 40px rgba(0, 204, 255, 0.4),
+    inset 0 0 15px rgba(0, 255, 136, 0.2) !important;
+  outline: none !important;
+  transform: translateY(-2px) !important;
+}
+
+.contact-input:hover {
+  border-color: #00ccff !important;
+  box-shadow: 
+    0 0 20px rgba(0, 255, 136, 0.5),
+    inset 0 0 12px rgba(0, 255, 136, 0.15) !important;
+}
+
+/* Contact form labels */
+.contact-label {
+  color: #00ff88 !important;
+  font-family: 'Courier New', monospace !important;
+  font-size: 14px !important;
+  font-weight: bold !important;
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.5) !important;
+  margin-bottom: 8px !important;
+  display: block !important;
+}
+/* Temporary debug - remove after */
+.about-me-paragraph {
+  color: #ffffff !important;
+  font-size: 1.125rem !important;
+  line-height: 1.75 !important;
+  font-weight: 400 !important;
+  background: rgba(0, 0, 0, 0.5) !important; /* semi-transparent background */
+  padding: 10px !important;
+  border-radius: 5px !important;
+}/* Center Skills section text only */
+#skills .cyber-text {
+  text-align: center !important;
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 100% !important;
+}
+
+/* Ensure Skills heading is centered */
+#skills .section-heading {
+  text-align: center !important;
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 100% !important;
+}
+
+/* Center the description text below skills */
+#skills .text-green-300 {
+  text-align: center !important;
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 100% !important;
+}
+
+/* Keep skill boxes in grid layout (don't center these) */
+#skills .grid {
+  justify-content: center !important;
+}/* Center only "Skills" heading */
+#skills .text-6xl.md\\:text-8xl.font-bold.mb-12.cyber-text.anime-glow.section-heading {
+  text-align: center !important;
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 100% !important;
+}
+
+/* Center only the specific technologies list text inside boxes */
+#skills .text-green-400.font-mono.text-sm {
+  text-align: center !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+}/* Center social media links text in Footer */
+footer .flex.justify-center.gap-6.mb-10.flex-wrap {
+  justify-content: center !important;
+  text-align: center !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Center individual social link text */
+footer .terminal-glass.px-6.py-3.border-2.border-green-400 {
+  text-align: center !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+/* Center the text inside social links */
+footer .text-green-400.neon-green.font-mono.text-sm {
+  justify-content: center !important;
+  text-align: center !important;
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+}
+
+/* Ensure all social media platform names are centered */
+footer .group .flex.items-center.gap-2 {
+  justify-content: center !important;
+  text-align: center !important;
+}/* Add space above the crafted with passion text */
+footer .text-green-600.text-sm.mt-2.font-mono {
+  margin-top: 1.5rem !important;
+  padding-top: 0.5rem !important;
+}
+
+/* Alternative more specific selector */
+footer .border-t.border-green-400\ .text-green-600 {
+  margin-top: 1.5rem !important;
+}
+
+/* Or target the specific paragraph */
+footer p.text-green-600.text-sm.mt-2.font-mono {
+  margin-top: 1.5rem !important;
+  display: block !important;
+}/* Add space above the crafted with passion text */
+footer .text-green-600.text-sm.mt-2.font-mono {
+  margin-top: 1.5rem !important;
+  padding-top: 0.5rem !important;
+}
+
+/* Alternative more specific selector */
+footer .border-t.border-green-400.text-green-600 {
+  margin-top: 1.5rem !important;
+}
+
+/* Or target the specific paragraph */
+footer p.text-green-600.text-sm.mt-2.font-mono {
+  margin-top: 1.5rem !important;
+  display: block !important;
+}/* Project filter boxes with proper spacing and visibility */
+#projects .flex button {
+  background: rgba(0, 20, 10, 0.85) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(0, 255, 136, 0.3) !important;
+  border-radius: 12px !important;
+  box-shadow: 
+    0 0 20px rgba(0, 255, 136, 0.2),
+    inset 0 0 15px rgba(0, 255, 136, 0.1) !important;
+  transition: all 0.3s ease !important;
+  color: #00ff88 !important;
+  padding: 12px 24px !important;
+  margin: 8px !important;
+  display: inline-block !important;
+}
+
+#projects .flex button:hover {
+  border-color: rgba(0, 255, 136, 0.6) !important;
+  box-shadow: 
+    0 0 25px rgba(0, 255, 136, 0.4),
+    inset 0 0 20px rgba(0, 255, 136, 0.15) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Active state */
+#projects .flex button.bg-blue-400 {
+  background: rgba(0, 255, 136, 0.15) !important;
+  border-color: #00ff88 !important;
+  box-shadow: 
+    0 0 30px rgba(0, 255, 136, 0.5),
+    inset 0 0 20px rgba(0, 255, 136, 0.2) !important;
+}
+
+/* Ensure the flex container has proper spacing */
+#projects .flex.flex-wrap.justify-center.gap-4 {
+  gap: 16px !important;
+  padding: 20px 0 !important;
+}/* Download Resume Button Styling - Slightly Bigger */
+.download-resume-btn {
+  background: linear-gradient(45deg, rgba(0, 255, 136, 0.9), rgba(0, 204, 255, 0.8)) !important;
+  border: 2px solid #00ff88 !important;
+  color: #000000 !important;
+  border-radius: 10px !important;
+  box-shadow: 
+    0 0 25px rgba(0, 255, 136, 0.6),
+    0 0 40px rgba(0, 204, 255, 0.4) !important;
+  transition: all 0.3s ease !important;
+  font-weight: 700 !important;
+  min-width: 140px !important;
+  padding: 12px 24px !important;
+  font-size: 14px !important;
+}
+
+.download-resume-btn:hover {
+  background: linear-gradient(45deg, rgba(0, 255, 136, 1), rgba(0, 204, 255, 0.9)) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 
+    0 0 35px rgba(0, 255, 136, 0.8),
+    0 0 60px rgba(0, 204, 255, 0.6),
+    0 5px 20px rgba(0, 0, 0, 0.3) !important;
+  color: #000000 !important;
+}
+
+/* Regular navigation buttons - original size */
+.nav-button {
+  min-width: 100px !important;
+  padding: 15px 20px !important;
+  font-size: 14px !important;
+}/* Nuclear option - highest specificity */
+nav .flex .flex-col .absolute.download-resume-btn {
+  position: absolute !important;
+  left: calc(25% + 258px) !important;
+  transform: translateX(-50%) !important;
+}
+/* Center Contact form elements */
+#contact form.terminal-glass {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  padding: 0.5px;
+}
+
+/* Center form inputs */
+#contact .contact-input {
+  text-align: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding: 0.5px;
+  display: block !important;
+}
+
+/* Center form labels */
+#contact .contact-label {
+  text-align: center !important;
+  display: block !important;
+  width: 100% !important;
+  justify-content: center !important;
+  padding: 0.5px;
+}
+
+/* Center the submit button */
+#contact .anime-button {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  display: block !important;
+  text-align: center !important;
+  padding: 0.5px;
+}
+
+/* Center the form container */
+#contact .flex-1.max-w-lg.w-full {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  flex-direction: column !important;
+}
+
+/* Center all direct children of contact form */
+#contact form > * {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  flex-direction: column !important;
+  width: 100% !important;
+}/* Round profile photo styling - left aligned */
+.profile-photo {
+  width: 160px !important;
+  height: 160px !important;
+  border-radius: 50% !important;
+  border: 3px solid #00ff88 !important;
+  box-shadow: 
+    0 0 25px rgba(0, 255, 136, 0.6),
+    0 0 50px rgba(0, 255, 136, 0.3),
+    inset 0 0 20px rgba(0, 255, 136, 0.2) !important;
+  object-fit: cover !important;
+  margin: 1.5rem 0 !important;
+  display: block !important;
+  animation: photoGlow 3s ease-in-out infinite alternate !important;
+}
+
+@keyframes photoGlow {
+  0% {
+    box-shadow: 
+      0 0 25px rgba(0, 255, 136, 0.6),
+      0 0 50px rgba(0, 255, 136, 0.3),
+      inset 0 0 20px rgba(0, 255, 136, 0.2);
+  }
+  100% {
+    box-shadow: 
+      0 0 35px rgba(0, 255, 136, 0.8),
+      0 0 70px rgba(0, 255, 136, 0.5),
+      0 0 90px rgba(0, 255, 136, 0.3),
+      inset 0 0 25px rgba(0, 255, 136, 0.3);
+  }
+}
+
+/* Ensure photo stays above background elements */
+.profile-photo {
+  position: relative !important;
+  z-index: 15 !important;
+}/* FIX: Ensure content stays above floating elements */
+.relative.z-10 {
+  z-index: 20 !important;
+}
+
+.relative.z-20 {
+  z-index: 30 !important;
+}
+
+/* Push floating code boxes to background */
+.floating-code {
+  z-index: 1 !important; /* Behind content */
+  pointer-events: none !important;
+}
+
+/* Ensure all main content containers are above */
+.max-w-6xl.mx-auto,
+.max-w-7xl.mx-auto,
+.max-w-4xl.mx-auto,
+.max-w-2xl.mx-auto {
+  position: relative;
+  z-index: 25 !important;
+}
+
+/* Specific section content protection */
+#about .max-w-2xl,
+#certifications .max-w-6xl, 
+#contact .max-w-6xl,
+#education .max-w-6xl,
+#hero .max-w-6xl,
+#projects .max-w-7xl {
+  z-index: 30 !important;
+  position: relative;
+}
+/* DISABLE ALL PARALLAX MOVEMENT - OVERRIDE JAVASCRIPT */
+.absolute.inset-0.transition-transform {
+  transform: translate(0px, 0px) !important;
+  transition: none !important;
+}
+
+/* Disable any transform on background containers */
+.absolute.inset-0 {
+  transform: none !important;
+}
+
+/* Force no movement on all background elements */
+[style*="transform"] {
+  transform: none !important;
+}/* CYBERPUNK DATA STREAM */
+section {
+  position: relative;
+  overflow: hidden;
+}
+
+section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 255, 136, 0.4),
+    rgba(0, 204, 255, 0.4),
+    rgba(255, 0, 255, 0.4),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  animation: dataStream 1.5s linear infinite;
+}
+
+section:hover::before {
+  opacity: 0.6;
+}
+
+@keyframes dataStream {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+section:hover {
+  box-shadow: 
+    0 0 60px rgba(0, 255, 136, 0.9),
+    0 0 120px rgba(0, 255, 136, 0.6) !important;
+}
+/* Center Certification Text */
+#certifications .terminal-glass {
+  text-align: center;
+}
+
+#certifications .terminal-glass p,
+#certifications .terminal-glass h3,
+#certifications .terminal-glass div {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#certifications .text-3xl {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+#certifications .bg-green-400 {
+  display: inline-block;
+  text-align: center;
+}
+
+#certifications .space-y-2 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+}/* NUCLEAR - Move ALL work experience dates to right side */
+#work-experience .bg-green-400 {
+    margin-left: auto !important;
+    margin-right: 0 !important;
+    float: right !important;
 }
 
-.App-link {
-  color: #61dafb;
+#work-experience .flex.items-center {
+    display: flex !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+}/* Center work experience headings */
+#work-experience .text-2xl.font-bold {
+    text-align: center !important;
+    display: block !important;
+    width: 100% !important;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#work-experience .text-cyan-400.font-mono {
+    text-align: center !important;
+    display: block !important;
+    width: 100% !important;
+}/* Center education text */
+#education .terminal-glass {
+    text-align: center !important;
+}
+
+#education .text-2xl.font-bold,
+#education .text-cyan-400.font-mono,
+#education .text-gray-300,
+#education .text-green-400.font-mono {
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    display: block !important;
+}
+
+#education .text-4xl {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    display: block !important;
+    text-align: center !important;
 }
