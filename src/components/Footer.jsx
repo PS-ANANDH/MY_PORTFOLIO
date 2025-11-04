@@ -260,7 +260,7 @@ const Footer = () => {
               transition={{ delay: 0.1, duration: 0.6 }}
             >
               © {new Date().getFullYear()}{" "}
-              <span className="neon-cyan font-bold">SELVA ANANDH</span>. 
+              <span className="neon-cyan font-bold">P.S.ANANDH</span>. 
               {" "}All rights reserved.
             </motion.p>
       </div>
