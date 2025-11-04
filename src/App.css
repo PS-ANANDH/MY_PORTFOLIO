@@ -1073,4 +1073,15 @@ section:hover {
     .download-resume-btn {
         margin-left: 36px !important;
     }
+}/* Move download resume button 5 inches total right */
+.download-resume-btn {
+    margin-left: 120px !important;
+    margin-right: auto !important;
+}
+
+/* For mobile responsiveness */
+@media (max-width: 768px) {
+    .download-resume-btn {
+        margin-left: 60px !important;
+    }
 }
