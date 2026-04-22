@@ -37,7 +37,7 @@ const Contact = () => {
     { icon: "💬", label: "WhatsApp", value: "Chat directly", href: "https://wa.me/916383025180?text=Hello%20Selva!%20I%20reviewed%20your%20impressive%20portfolio.%20Let's%20discuss%20an%20exciting%20career%20opportunity%20we%20have%20for%20you!", color: "#22c55e" },
     { icon: "💼", label: "LinkedIn", value: "linkedin.com/in/selva-anandh", href: "https://www.linkedin.com/in/selva-anandh-p-2b5781293", color: "#3b82f6" },
     { icon: "🐙", label: "GitHub",   value: "github.com/PS-ANANDH",   href: "https://github.com",              color: "#f472b6" },
-    { icon: "📍", label: "Location", value: "Srivilliputtur, Krishnankoil, Tamil Nadu",  href: null,                              color: "#fbbf24" },
+    { icon: "📍", label: "Location", value: "Srivilliputtur, Tamil Nadu",  href: "https://www.google.com/maps/place/Srivilliputtur,+Tamil+Nadu/@9.5101,77.6354,13z",  color: "#fbbf24" },
   ];
 
   return (
