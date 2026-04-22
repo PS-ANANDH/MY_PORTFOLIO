@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
 import Education from './components/Education';
 import Certifications from './components/Certifications';
-import Skills from './components/Skills'; 
+import Skills from './components/Skills';
 import WorkExperience from './components/WorkExperience';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
@@ -13,100 +13,83 @@ import Footer from './components/Footer';
 import './App.css';
 
 function App() {
-  const pageVariants = {
-    initial: {
-      opacity: 0,
-      scale: 0.98
-    },
-    in: {
-      opacity: 1,
-      scale: 1
-    },
-    out: {
-      opacity: 0,
-      scale: 1.02
-    }
-  };
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
-  const pageTransition = {
-    type: "tween",
-    ease: "anticipate",
-    duration: 0.8
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (window.scrollY / totalHeight) * 100;
+      setScrollProgress(progress);
+      setShowScrollTop(window.scrollY > 400);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <div className="App">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key="app-content"
-          initial="initial"
-          animate="in"
-          exit="out"
-          variants={pageVariants}
-          transition={pageTransition}
-        >{/* Navigation */}
-<Navbar />
+    <div className="App" style={{ position: 'relative', background: '#050510' }}>
+      {/* Global background orbs */}
+      <div className="orb orb-1" />
+      <div className="orb orb-2" />
+      <div className="orb orb-3" />
 
-{/* Fixed Hire Me Button - Outside Navbar */}
-<div className="navbar-hire-button">
-  <motion.button
-    className="nav-button px-8 py-4 cursor-pointer text-lg font-mono font-bold transition-all duration-300 text-center min-w-[140px] nav-button-inactive"
-    onClick={() => {
-      const element = document.querySelector("#contact");
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
-    }}
-    whileHover={{ 
-      scale: 1.1,
-      y: -2
-    }}
-    whileTap={{ scale: 0.95 }}
-    initial={{ opacity: 0, scale: 0.8 }}
-    animate={{ opacity: 1, scale: 1 }}
-    transition={{ delay: 0.2, duration: 0.5 }}
-  >
-    Hire Me ⚡
-  </motion.button>
-</div>
-          
-          {/* Main Sections */}
-          <main>
-            <Hero />
-            <About />
-            <Education/>
-            <Certifications/>
-            <Skills/>
-            <WorkExperience />
-            <Projects />
-            <Contact />
-          </main>
-          
-          {/* Footer */}
-          <Footer />
+      {/* Animated grid */}
+      <div className="grid-bg" />
 
-          {/* Global Background Elements */}
-          <div className="fixed inset-0 pointer-events-none -z-10">
-            {/* Global Binary Stream */}
-            <div className="absolute inset-0">
-              <div className="binary-stream"></div>
-              <div className="circuit-grid"></div>
-            </div>
+      {/* Noise overlay */}
+      <div className="noise-overlay" />
 
-            {/* Global Data Particles */}
-            <div className="data-particle particle-1"></div>
-            <div className="data-particle particle-2"></div>
-            <div className="data-particle particle-3"></div>
-            <div className="data-particle particle-4"></div>
-            <div className="data-particle particle-5"></div>
-            <div className="data-particle particle-6"></div>
-          </div>
+      {/* Scroll Progress Bar */}
+      <motion.div
+        className="scroll-progress"
+        style={{ scaleX: scrollProgress / 100 }}
+        initial={{ scaleX: 0 }}
+      />
 
-          {/* Scroll Progress Indicator */}
-          <div className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-green-400 to-blue-400 origin-left z-50"
-               style={{ transform: 'scaleX(0)' }}
-               id="scroll-progress" />
-        </motion.div>
+      {/* Navbar */}
+      <Navbar />
+
+      {/* Main Content */}
+      <motion.main
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+        style={{ position: 'relative', zIndex: 1 }}
+      >
+        <Hero />
+        <About />
+        <Skills />
+        <Education />
+        <Certifications />
+        <WorkExperience />
+        <Projects />
+        <Contact />
+      </motion.main>
+
+      {/* Footer */}
+      <Footer />
+
+      {/* Scroll to Top Button */}
+      <AnimatePresence>
+        {showScrollTop && (
+          <motion.button
+            className="scroll-top-btn"
+            onClick={scrollToTop}
+            initial={{ opacity: 0, scale: 0, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0, y: 20 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            aria-label="Scroll to top"
+          >
+            ↑
+          </motion.button>
+        )}
       </AnimatePresence>
     </div>
   );

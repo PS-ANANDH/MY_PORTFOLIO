@@ -1,227 +1,202 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 
 const Certifications = () => {
-  const backgroundRef = useRef(null);
-
- useEffect(() => {
-  const handleMouseMove = (e) => {
-    if (!backgroundRef.current) return;
-    
-    const rect = backgroundRef.current.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    
-    backgroundRef.current.style.setProperty('--mouse-x', `${x}%`);
-    backgroundRef.current.style.setProperty('--mouse-y', `${y}%`);
-  };
-
-  // Add the glow class
-  if (backgroundRef.current) {
-    backgroundRef.current.classList.add('section-glow-effect');
-  }
-
-  window.addEventListener("mousemove", handleMouseMove);
-  return () => window.removeEventListener("mousemove", handleMouseMove);
-}, []);
-
-  const certificationsData = [
-    {
-      title: "Java SE – EE",
-      issuer: "G Tech Academy",
-      location: "Madurai, India",
-      period: "Feb 2025 – May 2025",
-      
-    },
+  const certs = [
     {
       title: "Python AI/ML Internship",
       issuer: "Prog-Tec Company",
-      location: "",
-      period: "Jan 2025 – Mar 2025",
-     
+      date: "Mar 2025",
+      icon: "🧪",
+      color: "#a855f7",
+      desc: "Completed hands-on internship in Python, Machine Learning and Data Science with Parkinson's disease prediction project.",
+      badge: "Industry",
     },
     {
-      title: "AI-Based Resume Analyzer Project Completion",
-      issuer: "Self Project",
-      location: "",
-      period: "2025",
-      
-    }
+      title: "Java Full Stack Development",
+      issuer: "Self-Learning & Projects",
+      date: "2024–2025",
+      icon: "☕",
+      color: "#f59e0b",
+      desc: "Mastered Java, Spring Boot, REST APIs, Hibernate & MySQL through 8+ enterprise ERP projects.",
+      badge: "Project-Based",
+    },
+    {
+      title: "React & Node.js Developer",
+      issuer: "Self-Learning",
+      date: "2024–2025",
+      icon: "⚛️",
+      color: "#00f5ff",
+      desc: "Developed frontend with React and backend with Node.js for modern CRM and AI applications.",
+      badge: "Skill Badge",
+    },
+    {
+      title: "Prompt Engineering Specialist",
+      issuer: "AI Tools Practitioner",
+      date: "2025",
+      icon: "🤖",
+      color: "#10b981",
+      desc: "Expert in crafting AI prompts for code generation, content creation, and intelligent automation workflows.",
+      badge: "Emerging Tech",
+    },
+    {
+      title: "ERP Systems Architect",
+      issuer: "Industry Experience",
+      date: "2024–2025",
+      icon: "🏭",
+      color: "#6366f1",
+      desc: "Built 8+ full-featured ERP solutions for supermarket, construction, bakery, jewellery, and mobile sectors.",
+      badge: "Domain Expert",
+    },
+    {
+      title: "Voice AI Integration",
+      issuer: "Personal Innovation",
+      date: "2025",
+      icon: "🎙️",
+      color: "#f472b6",
+      desc: "Developed Hey Elite voice assistant with wake-word detection, NLP commands, and ERP module control.",
+      badge: "Innovation",
+    },
+    {
+      title: "Java SE & EE (3 Months)",
+      issuer: "G-Tec Education, Kalavasal Madurai",
+      date: "Completed",
+      icon: "📜",
+      color: "#ef4444",
+      desc: "Completed a comprehensive 3-month training program covering Java Standard and Enterprise Editions.",
+      badge: "Course",
+    },
   ];
 
   return (
-    <section 
-      id="certifications" 
-      className="relative min-h-screen overflow-hidden bg-black py-20"
+    <section
+      id="certifications"
+      style={{ position: "relative", padding: "120px 24px", overflow: "hidden" }}
     >
-      {/* Background Elements */}
-      <div 
-        ref={backgroundRef}
-        className="absolute inset-0 transition-transform duration-800 ease-out"
-        
-      >
-        {/* Binary Stream & Circuit Grid */}
-        <div className="absolute inset-0 bg-black">
-          <div className="binary-stream"></div>
-          <div className="circuit-grid"></div>
-        </div>
+      <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
 
-        {/* Floating Code Snippets */}
+        {/* Header */}
         <motion.div
-          className="floating-code code-1"
-          animate={{
-            y: [0, -25, 0],
-            rotateZ: [0, 3, 0],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        >
-          <div className="code-keyword">class</div>
-          <div className="code-function"> Certifications</div> {'{'}
-          <div className="code-comment">{"// Skills Validation"}</div>
-          <div className="code-keyword">constructor</div>() {'{'}
-          <div className="code-keyword">this</div>.
-          <div className="code-function">certs</div> = [
-          <div className="code-string">"Java"</div>,
-          <div className="code-string">"AI/ML"</div>
-          ];
-          {'}'}
-        </motion.div>
-
-        <motion.div
-          className="floating-code code-2"
-          animate={{
-            y: [0, 20, 0],
-            rotateZ: [0, -2, 0],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        >
-          <div className="code-comment">/* 認定と証明 */</div>
-          <div className="code-keyword">const</div> 
-          <div className="code-function"> achievements</div> = {'{'}
-          <div className="code-string">"learning"</div>: 
-          <div className="code-string">"validated"</div>,
-          <div className="code-string">"skills"</div>: 
-          <div className="code-string">"certified"</div>
-          {'}'};
-        </motion.div>
-      </div>
-
-      {/* Data Particles */}
-      <div className="data-particle particle-1"></div>
-      <div className="data-particle particle-2"></div>
-      <div className="data-particle particle-3"></div>
-      <div className="data-particle particle-4"></div>
-
-      {/* Main Content */}
-      <div className="relative z-10 max-w-6xl mx-auto px-6 initial-load-fix">
-        {/* Section Header */}
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 50 }}
+          style={{ textAlign: "center", marginBottom: "70px" }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 1, ease: "easeOut" }}
+          transition={{ duration: 0.8 }}
         >
-          <motion.h2
-            className="text-5xl md:text-7xl font-bold mb-6 cyber-text anime-glow section-heading"
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
-          >
-            CERTIFICATIONS
-          </motion.h2>
-          
-          <motion.p
-            className="text-green-300 text-xl max-w-2xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1, duration: 0.8 }}
-          >
-            Validated skills and professional certifications
-          </motion.p>
+          <div className="section-badge" style={{ justifyContent: "center" }}>
+            <span className="dot" />
+            Achievements
+          </div>
+          <h2 className="section-title gradient-text" style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", marginBottom: "16px" }}>
+            Certifications & Expertise
+          </h2>
+          <p style={{ color: "#64748b", maxWidth: "480px", margin: "0 auto", fontFamily: "'Inter',sans-serif", lineHeight: 1.7 }}>
+            Proven expertise across AI, Full Stack Development, ERP architecture, and emerging technologies
+          </p>
         </motion.div>
 
-        {/* Certifications Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {certificationsData.map((cert, index) => (
+        {/* Grid */}
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(3, 1fr)",
+          gap: "20px",
+        }}
+          className="certs-grid"
+        >
+          {certs.map((cert, i) => (
             <motion.div
-              key={index}
-              className="terminal-glass p-6 rounded-xl border-2 border-green-400/20 hover:border-green-400 transition-all duration-300 group"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              key={i}
+              className="cert-card"
+              initial={{ opacity: 0, y: 40, scale: 0.97 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.2, duration: 0.8 }}
-              whileHover={{ 
-                scale: 1.05,
-                y: -5,
-                borderColor: "rgb(34 197 94)",
-                transition: { duration: 0.2 }
-              }}
+              transition={{ delay: i * 0.1, duration: 0.6 }}
+              whileHover={{ y: -6, borderColor: `${cert.color}50` }}
             >
-              <div className="text-center">
-                <div className="text-3xl mb-3">{cert.icon}</div>
-                <h3 className="text-xl font-bold text-green-400 mb-2 group-hover:text-blue-400 transition-colors duration-300">
-                  {cert.title}
-                </h3>
-                
-                <div className="space-y-2">
-                  <p className="text-cyan-400 font-mono text-sm">
-                    {cert.issuer}
-                  </p>
-                  {cert.location && (
-                    <p className="text-gray-300 text-xs">
-                      {cert.location}
-                    </p>
-                  )}
-                  <div className="mt-3">
-                    <span className="text-green-400 font-mono text-xs bg-green-400/10 px-2 py-1 rounded-full border border-green-400/30">
-                      {cert.period}
+              {/* Top accent line */}
+              <div style={{
+                position: "absolute", top: 0, left: 0, right: 0, height: "3px",
+                background: `linear-gradient(90deg, ${cert.color}, ${cert.color}44)`,
+                borderRadius: "16px 16px 0 0",
+              }} />
+
+              {/* Header */}
+              <div style={{ display: "flex", alignItems: "flex-start", gap: "16px", marginBottom: "16px" }}>
+                <div style={{
+                  width: "50px", height: "50px", borderRadius: "12px",
+                  background: `${cert.color}15`,
+                  border: `1px solid ${cert.color}35`,
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  fontSize: "1.4rem", flexShrink: 0,
+                }}>
+                  {cert.icon}
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "6px", flexWrap: "wrap" }}>
+                    <span style={{
+                      padding: "2px 10px", borderRadius: "100px",
+                      background: `${cert.color}15`, border: `1px solid ${cert.color}30`,
+                      fontFamily: "'Fira Code',monospace", fontSize: "0.68rem",
+                      color: cert.color, fontWeight: 600,
+                    }}>
+                      {cert.badge}
+                    </span>
+                    <span style={{
+                      fontFamily: "'Fira Code',monospace", fontSize: "0.7rem", color: "#334155",
+                    }}>
+                      {cert.date}
                     </span>
                   </div>
+                  <h3 style={{
+                    fontFamily: "'Outfit',sans-serif", fontWeight: 700,
+                    fontSize: "0.95rem", color: "#e2e8f0", lineHeight: 1.3,
+                  }}>
+                    {cert.title}
+                  </h3>
                 </div>
               </div>
+
+              <p style={{
+                fontFamily: "'Fira Code',monospace", fontSize: "0.78rem",
+                color: cert.color, marginBottom: "12px",
+              }}>
+                {cert.issuer}
+              </p>
+
+              <p style={{
+                color: "#475569", fontSize: "0.83rem",
+                fontFamily: "'Inter',sans-serif", lineHeight: 1.6,
+              }}>
+                {cert.desc}
+              </p>
             </motion.div>
           ))}
         </div>
+
+        {/* Bottom Note */}
+        <motion.div
+          style={{
+            marginTop: "50px", textAlign: "center",
+            fontFamily: "'Fira Code',monospace",
+            fontSize: "0.8rem", color: "#334155",
+          }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+        >
+          <span style={{ color: "#a855f7" }}>// </span>
+          Continuously learning and expanding expertise in enterprise development & AI technologies
+        </motion.div>
       </div>
 
-      {/* Accent Animations */}
-      <motion.div
-        className="absolute top-1/4 right-12 w-1 h-24 bg-green-400 rounded-full"
-        animate={{
-          scaleY: [1, 2, 1],
-          opacity: [0.3, 1, 0.3],
-        }}
-        transition={{
-          duration: 2.5,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-      
-      <motion.div
-        className="absolute bottom-1/3 left-10 w-3 h-3 bg-blue-400 rounded-full"
-        animate={{
-          scale: [1, 2.2, 1],
-          opacity: [0.3, 1, 0.3],
-        }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 0.1
-        }}
-      />
+      <style>{`
+        @media (max-width: 1024px) {
+          .certs-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (max-width: 640px) {
+          .certs-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </section>
   );
 };

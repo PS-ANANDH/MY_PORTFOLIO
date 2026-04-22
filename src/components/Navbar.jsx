@@ -8,256 +8,225 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const isScrolled = window.scrollY > 50;
-      setScrolled(isScrolled);
-
-      // Update active section based on scroll position
-      const sections = ["hero", "about", "projects", "contact"];
-      const current = sections.find(section => {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
+      setScrolled(window.scrollY > 50);
+      const sections = ["hero", "about", "skills", "education", "certifications", "work-experience", "projects", "contact"];
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const el = document.getElementById(sections[i]);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 120) {
+            setActiveSection(sections[i]);
+            break;
+          }
         }
-        return false;
-      });
-      
-      if (current) {
-        setActiveSection(current);
       }
     };
-
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const navItems = [
-    { name: "Home", href: "#hero", section: "hero" },
-    { name: "About", href: "#about", section: "about" },
-    { name: "Projects", href: "#projects", section: "projects" },
+    { name: "Home",       href: "#hero",            section: "hero" },
+    { name: "About",      href: "#about",           section: "about" },
+    { name: "Skills",     href: "#skills",          section: "skills" },
+    { name: "Projects",   href: "#projects",        section: "projects" },
+    { name: "Contact",    href: "#contact",         section: "contact" },
   ];
 
-  const scrollToSection = (href) => {
+  const scrollTo = (href) => {
     setIsMenuOpen(false);
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+    const el = document.querySelector(href);
+    if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
   const downloadResume = () => {
-    // Create a temporary link element
-    const link = document.createElement('a');
-    
-    // CORRECTED: Use forward slash and remove "public" from path
-    link.href = '/SELVA ANANDH.pdf'; // Change this to your actual resume file path
-    link.download = 'Selva_Anandh_Resume.pdf'; // Change to your preferred file name
-    
-    // Append to body, click, and remove
+    const link = document.createElement("a");
+    link.href = "/Selva_Anandh_P.pdf";
+    link.download = "Selva_Anandh_Resume.pdf";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   };
 
   return (
-    <motion.nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled 
-          ? "terminal-glass backdrop-blur-lg bg-black/80 border-b border-green-400/20" 
-          : "bg-transparent"
-      }`}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-    >
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex items-center justify-between h-16 relative">
-          {/* Logo */}
-          <motion.div
-            className="flex items-center gap-3"
-            whileHover={{ scale: 1.05 }}
-          >
-            <motion.div
-              className="w-3 h-3 bg-green-400 rounded-full"
-              animate={{ 
-                scale: [1, 1.2, 1],
-                opacity: [0.7, 1, 0.7]
-              }}
-              transition={{ 
-                duration: 2, 
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
+    <>
+      <motion.nav
+        className={`navbar ${scrolled ? "scrolled" : ""}`}
+        initial={{ y: -80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+        style={{ padding: "0 24px" }}
+      >
+        <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: "68px" }}>
+
+            {/* Logo */}
             <motion.a
               href="#hero"
-              className="text-green-400 font-mono text-lg font-bold hover:text-blue-400 transition-colors duration-300 cyber-text"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToSection("#hero");
-              }}
+              onClick={(e) => { e.preventDefault(); scrollTo("#hero"); }}
+              style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "10px" }}
+              whileHover={{ scale: 1.05 }}
             >
-              {"MY PORT"}
+              <motion.div
+                style={{
+                  width: "36px", height: "36px", borderRadius: "10px",
+                  background: "linear-gradient(135deg, #a855f7, #00f5ff)",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  overflow: "hidden", padding: "2px",
+                  boxShadow: "0 0 15px rgba(168,85,247,0.5)"
+                }}
+                animate={{ boxShadow: ["0 0 15px rgba(168,85,247,0.5)", "0 0 25px rgba(0,245,255,0.5)", "0 0 15px rgba(168,85,247,0.5)"] }}
+                transition={{ duration: 3, repeat: Infinity }}
+              >
+                <img src="./images/Me.jpeg" alt="Selva Anandh P" style={{ width: "100%", height: "100%", borderRadius: "8px", objectFit: "cover" }} />
+              </motion.div>
+              <span className="nav-logo-text">selva anandh</span>
             </motion.a>
-          </motion.div>
 
-          {/* Desktop Navigation - Centered with Download Button Below About */}
-          <div className="hidden md:flex items-center justify-center flex-1 navbar-center-container">
-            <div className="flex flex-col items-center justify-center relative">
-              {/* Top Row - Navigation Buttons */}
-              <div className="flex justify-center items-center w-full navbar-buttons-container">
-                {navItems.map((item, index) => (
-                  <motion.a
-                    key={item.name}
-                    href={item.href}
-                    className={`nav-button px-6 py-2.5 cursor-pointer text-sm font-mono font-bold transition-all duration-300 text-center mx-2 min-w-[100px] ${
-                      activeSection === item.section
-                        ? "nav-button-active"
-                        : "nav-button-inactive"
-                    }`}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      scrollToSection(item.href);
-                    }}
-                    whileHover={{ 
-                      scale: 1.05,
-                      y: -2
-                    }}
-                    whileTap={{ scale: 0.95 }}
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 + 0.3, duration: 0.5 }}
-                  >
-                    {item.name}
-                  </motion.a>
-                ))}
-              </div>
+            {/* Desktop Nav */}
+            <div style={{ display: "flex", alignItems: "center", gap: "6px" }} className="desktop-nav">
+              {navItems.map((item, i) => (
+                <motion.a
+                  key={item.name}
+                  href={item.href}
+                  className={`nav-link ${activeSection === item.section ? "active" : ""}`}
+                  onClick={(e) => { e.preventDefault(); scrollTo(item.href); }}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.08 + 0.3 }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  {item.name}
+                </motion.a>
+              ))}
+            </div>
 
-              {/* Download Resume Button - Positioned below About button */}
+            {/* Right Buttons */}
+            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
               <motion.button
                 onClick={downloadResume}
-                className="download-resume-btn px-8 py-3 cursor-pointer text-sm font-mono font-bold transition-all duration-300 text-center min-w-[140px] absolute -bottom-16 left-3/4 transform -translate-x-1/2"
-                whileHover={{ 
-                  scale: 1.05,
-                  y: -2
+                style={{
+                  padding: "8px 18px", borderRadius: "10px",
+                  background: "transparent",
+                  border: "1px solid rgba(168,85,247,0.4)",
+                  color: "#a855f7", fontFamily: "'Fira Code', monospace",
+                  fontSize: "0.82rem", fontWeight: "500", cursor: "pointer",
+                  transition: "all 0.3s ease"
+                }}
+                whileHover={{
+                  background: "rgba(168,85,247,0.1)",
+                  borderColor: "rgba(168,85,247,0.7)",
+                  scale: 1.05
                 }}
                 whileTap={{ scale: 0.95 }}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6, duration: 0.5 }}
+                transition={{ delay: 0.6 }}
+                className="desktop-nav"
               >
-                📄 Download Resume
+                📄 Resume
+              </motion.button>
+
+              <motion.button
+                className="hire-btn"
+                onClick={() => scrollTo("#contact")}
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7 }}
+                whileHover={{ scale: 1.08, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Hire Me ⚡
+              </motion.button>
+
+              {/* Hamburger */}
+              <motion.button
+                style={{
+                  background: "none", border: "none", cursor: "pointer",
+                  padding: "8px", display: "none"
+                }}
+                className="hamburger-btn"
+                onClick={() => setIsMenuOpen(true)}
+                whileTap={{ scale: 0.9 }}
+                aria-label="Open menu"
+              >
+                <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
+                  {[0, 1, 2].map((i) => (
+                    <div key={i} style={{
+                      width: "24px", height: "2px",
+                      background: "linear-gradient(90deg, #a855f7, #00f5ff)",
+                      borderRadius: "2px"
+                    }} />
+                  ))}
+                </div>
               </motion.button>
             </div>
           </div>
-
-          {/* Mobile Menu Button */}
-          <motion.button
-            className="md:hidden relative w-8 h-8 flex flex-col items-center justify-center"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            whileTap={{ scale: 0.9 }}
-          >
-            <motion.span
-              className={`w-6 h-0.5 bg-green-400 rounded-full absolute transition-all duration-300 ${
-                isMenuOpen ? "rotate-45 top-4" : "top-3"
-              }`}
-              animate={{ rotate: isMenuOpen ? 45 : 0 }}
-            />
-            <motion.span
-              className={`w-6 h-0.5 bg-green-400 rounded-full absolute top-4 transition-all duration-300 ${
-                isMenuOpen ? "opacity-0" : "opacity-100"
-              }`}
-            />
-            <motion.span
-              className={`w-6 h-0.5 bg-green-400 rounded-full absolute transition-all duration-300 ${
-                isMenuOpen ? "-rotate-45 top-4" : "top-5"
-              }`}
-              animate={{ rotate: isMenuOpen ? -45 : 0 }}
-            />
-          </motion.button>
         </div>
+      </motion.nav>
 
-        {/* Mobile Navigation */}
-        <AnimatePresence>
-          {isMenuOpen && (
-            <motion.div
-              className="md:hidden absolute top-16 left-0 right-0 terminal-glass border-t border-green-400/20 backdrop-blur-lg"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
+      {/* Mobile Full-Screen Menu */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            className="mobile-menu"
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.05 }}
+            transition={{ duration: 0.3 }}
+          >
+            <motion.button
+              style={{
+                position: "absolute", top: "24px", right: "24px",
+                background: "rgba(168,85,247,0.1)", border: "1px solid rgba(168,85,247,0.3)",
+                borderRadius: "10px", width: "44px", height: "44px",
+                color: "#a855f7", fontSize: "1.3rem", cursor: "pointer",
+                display: "flex", alignItems: "center", justifyContent: "center"
+              }}
+              onClick={() => setIsMenuOpen(false)}
+              whileTap={{ scale: 0.9 }}
             >
-              <div className="px-6 py-4 space-y-4">
-                {navItems.map((item, index) => (
-                  <motion.a
-                    key={item.name}
-                    href={item.href}
-                    className={`nav-button-mobile block text-center font-mono text-sm font-bold transition-all duration-300 px-4 py-3 rounded-lg ${
-                      activeSection === item.section
-                        ? "nav-button-active"
-                        : "nav-button-inactive"
-                    }`}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      scrollToSection(item.href);
-                      setIsMenuOpen(false);
-                    }}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1, duration: 0.3 }}
-                    whileHover={{ x: 4 }}
-                  >
-                    {item.name}
-                  </motion.a>
-                ))}
-                
-                {/* Download Resume Button - Mobile */}
-                <motion.button
-                  onClick={() => {
-                    downloadResume();
-                    setIsMenuOpen(false);
-                  }}
-                  className="w-full download-resume-btn text-sm font-mono font-bold py-3 rounded-lg nav-button-inactive"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.3, duration: 0.3 }}
-                  whileHover={{ x: 4 }}
-                >
-                  📄 Download Resume
-                </motion.button>
-                
-                <motion.button
-                  className="w-full anime-button-hire text-sm font-mono font-bold mt-4 py-3"
-                  onClick={() => {
-                    scrollToSection("#contact");
-                    setIsMenuOpen(false);
-                  }}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4, duration: 0.3 }}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  Hire Me ⚡
-                </motion.button>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+              ✕
+            </motion.button>
 
-      {/* Navigation Status Indicator */}
-      <motion.div
-        className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-green-400 to-blue-400"
-        initial={{ scaleX: 0 }}
-        animate={{ scaleX: scrolled ? 1 : 0 }}
-        transition={{ duration: 0.5 }}
-        style={{ 
-          transformOrigin: "left",
-          width: `${(navItems.findIndex(item => item.section === activeSection) + 1) / navItems.length * 100}%`
-        }}
-      />
-    </motion.nav>
+            {navItems.map((item, i) => (
+              <motion.a
+                key={item.name}
+                href={item.href}
+                className={`mobile-nav-link ${activeSection === item.section ? "active" : ""}`}
+                onClick={(e) => { e.preventDefault(); scrollTo(item.href); }}
+                initial={{ opacity: 0, x: -40 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.1 }}
+                whileHover={{ x: 12 }}
+              >
+                {item.name}
+              </motion.a>
+            ))}
+
+            <motion.button
+              className="hire-btn"
+              onClick={() => { scrollTo("#contact"); setIsMenuOpen(false); }}
+              style={{ marginTop: "24px", fontSize: "1.1rem", padding: "16px 40px" }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              whileHover={{ scale: 1.05 }}
+            >
+              Hire Me ⚡
+            </motion.button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .desktop-nav { display: none !important; }
+          .hamburger-btn { display: flex !important; }
+        }
+      `}</style>
+    </>
   );
 };
 

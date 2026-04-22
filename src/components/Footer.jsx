@@ -1,340 +1,184 @@
-import React, { useEffect, useRef, useState } from "react";
-
+import React from "react";
 import { motion } from "framer-motion";
 
 const Footer = () => {
-  const backgroundRef = useRef(null);
-   const [showMessage, setShowMessage] = useState(false);
+  const socials = [
+    { label: "LinkedIn",    icon: "💼", href: "https://www.linkedin.com/in/selva-anandh-p-2b5781293", color: "#3b82f6" },
+    { label: "GitHub",      icon: "🐙", href: "https://github.com",                                    color: "#e2e8f0" },
+    { label: "Email",       icon: "📧", href: "mailto:selvaanandh8@gmail.com",                       color: "#a855f7" },
+    { label: "Phone",       icon: "📞", href: "tel:+91 6383025180",                                     color: "#22c55e" },
+  ];
 
- useEffect(() => {
-  const handleMouseMove = (e) => {
-    if (!backgroundRef.current) return;
-    
-    const rect = backgroundRef.current.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    
-    backgroundRef.current.style.setProperty('--mouse-x', `${x}%`);
-    backgroundRef.current.style.setProperty('--mouse-y', `${y}%`);
+  const quickLinks = [
+    { label: "About",        href: "#about" },
+    { label: "Skills",       href: "#skills" },
+    { label: "Projects",     href: "#projects" },
+    { label: "Experience",   href: "#work-experience" },
+    { label: "Education",    href: "#education" },
+    { label: "Contact",      href: "#contact" },
+  ];
+
+  const scrollTo = (href) => {
+    const el = document.querySelector(href);
+    if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
-  // Add the glow class
-  if (backgroundRef.current) {
-    backgroundRef.current.classList.add('section-glow-effect');
-  }
-
-  window.addEventListener("mousemove", handleMouseMove);
-  return () => window.removeEventListener("mousemove", handleMouseMove);
-}, []);
-
   return (
-    <motion.footer
-      className="relative min-h-screen overflow-hidden bg-black flex items-center justify-center px-4"
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 1.5 }}
-    >
-      {/* Background Elements - Fixed blur issues */}
-      <div 
-        ref={backgroundRef}
-        className="absolute inset-0 transition-transform duration-800 ease-out"
-        
-      >
-        {/* Binary Stream & Circuit Grid */}
-        <div className="absolute inset-0 bg-black">
-          <div className="binary-stream"></div>
-          <div className="circuit-grid"></div>
-        </div>
+    <footer style={{
+      position: "relative",
+      background: "rgba(5,5,16,0.95)",
+      borderTop: "1px solid rgba(168,85,247,0.15)",
+      padding: "60px 24px 30px",
+      overflow: "hidden",
+    }}>
+      {/* Top glow */}
+      <div style={{
+        position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)",
+        width: "600px", height: "1px",
+        background: "linear-gradient(90deg, transparent, #a855f7, #00f5ff, transparent)",
+      }} />
 
-        {/* Floating Code Snippets */}
-        <motion.div
-          className="floating-code code-1"
-          animate={{
-            y: [0, -30, 0],
-            rotateZ: [0, 4, 0],
-          }}
-          transition={{
-            duration: 18,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        >
-          <div className="code-comment">{"/* 最後のメッセージ */"}</div>
-          <div className="code-keyword">export</div> 
-          <div className="code-keyword">default</div> 
-          <div className="code-function"> Footer</div>;
-          <div className="code-comment">{"// さようなら 👋"}</div>
-        </motion.div>
+      <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
 
-        <motion.div
-          className="floating-code code-2"
-          animate={{
-            y: [0, 25, 0],
-            rotateZ: [0, -3, 0],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        >
-          <div className="code-keyword">function</div>
-          <div className="code-function"> connect</div>() {'{'}
-          <div className="code-keyword">return</div> 
-          <div className="code-string">"Let's code together! 🚀"</div>;
-          {'}'}
-        </motion.div>
+        {/* Main Footer Grid */}
+        <div style={{ display: "grid", gridTemplateColumns: "1.5fr 1fr 1fr", gap: "40px", marginBottom: "50px" }} className="footer-grid">
 
-        <motion.div
-          className="floating-code code-3"
-          animate={{
-            y: [0, -20, 0],
-            rotateZ: [0, 2, 0],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        >
-          <div className="code-comment">{"// また会う日まで"}</div>
-          <div className="code-keyword">const</div> 
-          <div className="code-function"> goodbye</div> = 
-          <div className="code-string">"See you next project! 💫"</div>;
-        </motion.div>
-      </div>
-
-      {/* Data Particles */}
-      <div className="data-particle particle-1"></div>
-      <div className="data-particle particle-2"></div>
-      <div className="data-particle particle-3"></div>
-      <div className="data-particle particle-4"></div>
-      <div className="data-particle particle-5"></div>
-      <div className="data-particle particle-6"></div>
-
-      {/* Main Content */}
-      <div className="relative z-10 text-center max-w-4xl mx-auto">
-        {/* Main Footer Content */}
-        <motion.div
-          className="terminal-glass p-12"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
-        >
-          {/* Hero Text */}
-          <motion.h2
-            className="text-5xl md:text-7xl font-bold mb-6 cyber-text anime-glow section-heading"
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
-            Let's Connect
-          </motion.h2>
-
-          {/* Supporting Text */}
-          <motion.p
-            className="text-green-300 text-xl mb-8 max-w-2xl mx-auto typewriter"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 0.1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1, duration: 0.6 }}
-          >
-            Ready to start your next project? Let's create something extraordinary together.
-          </motion.p>
-
-          {/* Social Links */}
-<motion.div
-  className="flex justify-center gap-6 mb-10 flex-wrap"
-  initial={{ opacity: 0 }}
-  whileInView={{ opacity: 1 }}
-  viewport={{ once: true }}
-  transition={{ delay: 0.1, duration: 0.6 }}
->
-  {[
-    { 
-      name: 'GitHub', 
-      icon: '💻', 
-      url: 'https://github.com/PS-ANANDH' 
-    },
-    { 
-      name: 'LinkedIn', 
-      icon: '💼', 
-      url: 'https://www.linkedin.com/in/selva-anandh-p-a48a67320' 
-    },
-    { 
-      name: 'Twitter', 
-      icon: '🐦', 
-      url: 'https://x.com/PSANANDH6' 
-    },
-    { 
-      name: 'Discord', 
-      icon: '🎮', 
-      url: 'https://support.discord.com/hc/en-us/profiles/36093442166423' 
-    },
-    { 
-      name: 'Email', 
-      icon: '📧', 
-      url: 'mailto:selvaanandh8@gmail.com' 
-    }
-  ].map((platform, index) => (
-    <motion.a
-      key={platform.name}
-      href={platform.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group relative"
-      whileHover={{ scale: 1.1, y: -2 }}
-      whileTap={{ scale: 0.95 }}
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: 0.1 + index * 0.1, duration: 0.5 }}
-    >
-      <div className="terminal-glass px-6 py-3 border-2 border-green-400 hover:border-green-300 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-green-400/50">
-        <span className="text-green-400 neon-green font-mono text-sm flex items-center gap-2 group-hover:text-green-300 group-hover:neon-glow">
-          <span>{platform.icon}</span>
-          {platform.name}
-        </span>
-      </div>
-    </motion.a>
-  ))}
-</motion.div>
-
-          {/* Copyright Text */}
+          {/* Brand */}
           <motion.div
-            className="border-t border-green-400/20 pt-8"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.1, duration: 0.8 }}
+            transition={{ duration: 0.6 }}
           >
-            
-            
-            <motion.p
-              className="text-green-600 text-sm mt-2 font-mono"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1, duration: 0.6 }}
-            >
-              // Crafted with passion and modern technology
-            </motion.p>
-          </motion.div>
-        </motion.div>
-
-        {/* Scroll to Top */}
-        <motion.div
-          className="mt-12 back-to-top-container"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1, duration: 0.8 }}
-        >
-          <motion.a
-            href="#hero"
-            className="group back-to-top-button"
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <div className="terminal-glass px-6 py-3 border-2 border-green-400 hover:border-green-300 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-green-400/50">
-              <span className="text-green-400 neon-green font-mono text-sm flex items-center justify-center gap-2 group-hover:text-green-300 group-hover:neon-glow">
-                <motion.span
-                  animate={{ y: [0, -3, 0] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                >
-                  ↑
-                </motion.span>
-                Back to Top
+            <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "20px" }}>
+              <div style={{
+                width: "42px", height: "42px", borderRadius: "12px",
+                background: "linear-gradient(135deg, #a855f7, #00f5ff)",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                overflow: "hidden", padding: "2.5px",
+                boxShadow: "0 0 20px rgba(168,85,247,0.4)",
+              }}>
+                <img src="./images/Me.jpeg" alt="Selva Anandh P" style={{ width: "100%", height: "100%", borderRadius: "9.5px", objectFit: "cover" }} />
+              </div>
+              <div>
+                <div style={{ fontFamily: "'Outfit',sans-serif", fontWeight: 800, color: "#e2e8f0", fontSize: "1.05rem" }}>
+                  Selva Anandh P
+                </div>
+                <div style={{ fontFamily: "'Fira Code',monospace", fontSize: "0.75rem", color: "#334155" }}>
+                  Full Stack Developer
+                </div>
+              </div>
+            </div>
+            <p style={{
+              color: "#334155", fontSize: "0.85rem",
+              fontFamily: "'Inter',sans-serif", lineHeight: 1.7, maxWidth: "300px",
+            }}>
+              Building enterprise ERP systems, AI-powered applications, and modern web solutions with Java, React & Spring Boot.
+            </p>
+            <div style={{ marginTop: "20px", display: "flex", alignItems: "center", gap: "8px" }}>
+              <motion.div
+                style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#22c55e", boxShadow: "0 0 8px #22c55e" }}
+                animate={{ scale: [1, 1.5, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
+              <span style={{ color: "#22c55e", fontFamily: "'Fira Code',monospace", fontSize: "0.78rem" }}>
+                Open to Work — Tamil Nadu, India
               </span>
             </div>
-          </motion.a>
-        </motion.div>
-        <motion.p
-              className="text-green-400 text-lg font-mono"
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1, duration: 0.6 }}
-            >
-              © {new Date().getFullYear()}{" "}
-              <span className="neon-cyan font-bold">P.S.ANANDH</span>. 
-              {" "}All rights reserved.
-            </motion.p>
+          </motion.div>
+
+          {/* Quick Links */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            <h4 style={{
+              fontFamily: "'Fira Code',monospace", fontWeight: 600,
+              color: "#a855f7", fontSize: "0.82rem", marginBottom: "20px",
+              textTransform: "uppercase", letterSpacing: "0.1em",
+            }}>
+              // Navigation
+            </h4>
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+              {quickLinks.map((link) => (
+                <motion.a
+                  key={link.label}
+                  href={link.href}
+                  onClick={(e) => { e.preventDefault(); scrollTo(link.href); }}
+                  style={{
+                    color: "#475569", fontFamily: "'Inter',sans-serif",
+                    fontSize: "0.88rem", textDecoration: "none",
+                    display: "flex", alignItems: "center", gap: "8px",
+                    transition: "all 0.3s ease",
+                  }}
+                  whileHover={{ x: 6, color: "#e2e8f0" }}
+                >
+                  <span style={{ color: "#334155" }}>▹</span>
+                  {link.label}
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Social Links */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <h4 style={{
+              fontFamily: "'Fira Code',monospace", fontWeight: 600,
+              color: "#00f5ff", fontSize: "0.82rem", marginBottom: "20px",
+              textTransform: "uppercase", letterSpacing: "0.1em",
+            }}>
+              // Connect
+            </h4>
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+              {socials.map((s, i) => (
+                <motion.a
+                  key={i}
+                  href={s.href}
+                  target={s.href.startsWith("http") ? "_blank" : undefined}
+                  rel="noreferrer"
+                  className="footer-social-link"
+                  style={{ textDecoration: "none" }}
+                  whileHover={{ x: 6 }}
+                >
+                  <span style={{ fontSize: "1rem" }}>{s.icon}</span>
+                  <span style={{ color: s.color }}>{s.label}</span>
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Divider */}
+        <div className="divider-gradient" />
+
+        {/* Bottom Bar */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "16px" }}>
+          <p style={{ color: "#aa70b3ff", fontFamily: "'Fira Code',monospace", fontSize: "0.78rem" }}>
+            © 2025 <span style={{ color: "#a855f7" }}>Selva Anandh P</span> · All Rights Reserved
+          </p>
+          <p style={{ color: "#aa70b3ff", fontFamily: "'Fira Code',monospace", fontSize: "0.75rem" }}>
+            Built with <span style={{ color: "#ef4444" }}>❤️</span> using{" "}
+            <span style={{ color: "#61DAFB" }}>React</span> &{" "}
+            <span style={{ color: "#a855f7" }}>Framer Motion</span>
+          </p>
+        </div>
       </div>
 
-      {/* Accent Animations */}
-      <motion.div
-        className="absolute bottom-32 left-1/4 w-0.5 h-16 bg-green-400 rounded-full"
-        animate={{
-          scaleY: [1, 2.5, 1],
-          opacity: [0.2, 1, 0.2],
-        }}
-        transition={{
-          duration: 3,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-      
-      <motion.div
-        className="absolute top-1/3 right-1/4 w-2 h-2 bg-blue-400 rounded-full"
-        animate={{
-          scale: [1, 3, 1],
-          opacity: [0.3, 1, 0.3],
-        }}
-        transition={{
-          duration: 2.5,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 0.1
-        }}
-      />
-
-      {/* Additional Floating Elements */}
-      <motion.div
-        className="absolute top-40 left-20 w-10 h-10 border-2 border-green-400 rounded-full"
-        animate={{
-          rotate: 360,
-          scale: [1, 1.5, 1],
-        }}
-        transition={{
-          rotate: { duration: 25, repeat: Infinity, ease: "linear" },
-          scale: { duration: 6, repeat: Infinity, ease: "easeInOut" }
-        }}
-      />
-      
-      <motion.div
-        className="absolute bottom-40 right-24 w-8 h-8 border-2 border-blue-400 rotate-45"
-        animate={{
-          rotate: [45, 405, 45],
-          scale: [1, 1.4, 1],
-        }}
-        transition={{
-          duration: 15,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-
-      {/* Binary Counter */}
-      <motion.div
-        className="absolute bottom-8 left-8 font-mono text-green-600 text-xs"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.1, duration: 0.5 }}
-      >
-        <motion.div
-          animate={{ opacity: [0.1, 0.1, 0.3] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          01000110 01101001 01101110
-        </motion.div>
-      </motion.div>
-    </motion.footer>
+      <style>{`
+        @media (max-width: 768px) {
+          .footer-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
+    </footer>
   );
 };
 

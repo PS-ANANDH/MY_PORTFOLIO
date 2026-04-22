@@ -1,449 +1,349 @@
-import React, { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import React, { useState, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
+const CATEGORIES = [
+  { id: "all",        label: "All Projects",      icon: "🌐" },
+  { id: "erp",        label: "ERP Systems",        icon: "🏭" },
+  { id: "web",        label: "Web Apps",           icon: "💻" },
+  { id: "ai",         label: "AI Powered",         icon: "🧠" },
+];
+
+const PROJECTS = [
+  {
+    id: 1,
+    title: "Supermarket ERP Software",
+    desc: "Full-featured supermarket management system with billing, inventory, GST management, purchase modules, and real-time stock tracking with voice AI integration.",
+    tech: ["React", "Node.js", "Electron Builder", "MySQL"],
+    category: "erp",
+    icon: "🛒",
+    color: "#a855f7",
+    status: "completed",
+    highlights: ["POS Billing", "Stock Management", "GST Reports", "Voice AI"],
+  },
+  {
+    id: 2,
+    title: "Construction ERP Software",
+    desc: "Enterprise construction management with project tracking, contractor management, material procurement, financial ledgers, and site progress monitoring.",
+    tech: ["React", "Node.js", "Electron Builder", "MySQL"],
+    category: "erp",
+    icon: "🏗️",
+    color: "#f59e0b",
+    status: "completed",
+    highlights: ["Project Tracking", "Contractor Mgmt", "Procurement", "Finance"],
+  },
+  {
+    id: 3,
+    title: "Bakery ERP Software",
+    desc: "Smart bakery management platform with recipe costing, production planning, POS billing, ingredient tracking, and daily sales analytics with voice assistant.",
+    tech: ["React", "Node.js", "Electron Builder", "MySQL", "Voice AI"],
+    category: "erp",
+    icon: "🥐",
+    color: "#f472b6",
+    status: "completed",
+    highlights: ["POS System", "Recipe Costing", "Voice AI", "Analytics"],
+  },
+  {
+    id: 4,
+    title: "Jewellery Shop ERP",
+    desc: "Premium jewellery store management with gold & silver pricing, hallmark tracking, customer purchase history, EMI management, and detailed inventory.",
+    tech: ["React", "Node.js", "Electron Builder", "MySQL"],
+    category: "erp",
+    icon: "💎",
+    color: "#fbbf24",
+    status: "completed",
+    highlights: ["Gold Pricing", "Hallmark Track", "EMI Mgmt", "Inventory"],
+  },
+  {
+    id: 5,
+    title: "Mobile Shop ERP",
+    desc: "Complete mobile store management with IMEI tracking, warranty management, sales billing, repair service module, and supplier management system.",
+    tech: ["React", "Node.js", "Electron Builder", "MySQL"],
+    category: "erp",
+    icon: "📱",
+    color: "#22c55e",
+    status: "completed",
+    highlights: ["IMEI Tracking", "Warranty Mgmt", "Repair Service", "Billing"],
+  },
+  {
+    id: 6,
+    title: "CRM Web Application",
+    desc: "Customer Relationship Management system with lead tracking, follow-up reminders, sales pipeline management, customer interaction history, and team performance analytics.",
+    tech: ["React", "Node.js", "MySQL", "REST API"],
+    category: "web",
+    icon: "🤝",
+    color: "#3b82f6",
+    status: "completed",
+    highlights: ["Lead Tracking", "Pipeline Mgmt", "Analytics", "Follow-ups"],
+  },
+  {
+    id: 7,
+    title: "Electronic Service Module",
+    desc: "Electronics repair management with job card creation, fault diagnosis tracking, customer notification, spare parts inventory, and technician assignment system.",
+    tech: ["React", "Node.js", "MySQL", "HTML", "CSS"],
+    category: "web",
+    icon: "🔧",
+    color: "#06b6d4",
+    status: "completed",
+    highlights: ["Job Cards", "Parts Inventory", "Notifications", "Tech Assign"],
+  },
+  {
+    id: 8,
+    title: "LIC Policy Portfolio",
+    desc: "Life Insurance Corporation policy management system for tracking policy details, premium schedules, maturity dates, client portfolios, and renewal reminders.",
+    tech: ["React", "Node.js", "MySQL", "HTML", "CSS"],
+    category: "web",
+    icon: "📋",
+    color: "#8b5cf6",
+    status: "completed",
+    highlights: ["Policy Track", "Premium Mgmt", "Renewals", "Reports"],
+  },
+  {
+    id: 9,
+    title: "DineHome E-Commerce",
+    desc: "Responsive e-commerce platform for online food and home product ordering with modules for login, product listing, cart, order management, and RESTful APIs.",
+    tech: ["React", "Node.js", "MySQL", "HTML", "CSS"],
+    category: "web",
+    icon: "🍽️",
+    color: "#ef4444",
+    status: "completed",
+    image: "./images/DineHome.jpeg",
+    highlights: ["Order Mgmt", "Cart System", "Auth Module", "REST APIs"],
+  },
+  {
+    id: 10,
+    title: "AI Resume Analyzer",
+    desc: "AI-powered web app that analyzes resumes, matches candidate skills with job openings, extracts keywords, and provides intelligent job recommendations.",
+    tech: ["React", "Node.js", "MySQL", "HTML", "CSS"],
+    category: "ai",
+    icon: "📄",
+    color: "#10b981",
+    status: "completed",
+    image: "./images/CvAnalyZer.jpeg",
+    highlights: ["Resume Parse", "Skill Match", "Job Suggest", "AI Engine"],
+  },
+  {
+    id: 11,
+    title: "AI CodeFixer ChatBot",
+    desc: "Intelligent code debugging assistant that detects bugs automatically, suggests real-time fixes, and supports multiple programming languages for developers.",
+    tech: ["React", "Node.js", "Tailwind CSS", "Framer Motion"],
+    category: "ai",
+    icon: "🤖",
+    color: "#6366f1",
+    status: "completed",
+    image: "./images/AiCodefixer.jpeg",
+    highlights: ["Bug Detection", "Auto Fix", "Multi-lang", "Real-time"],
+  },
+];
 
 const Projects = () => {
-  const backgroundRef = useRef(null);
   const [activeFilter, setActiveFilter] = useState("all");
+  const [hoveredCard, setHoveredCard] = useState(null);
 
-  const projects = [
-    {
-      id: 1,
-      title: "DineHome E-Commerce Web Application",
-      description: "Built a responsive e-commerce platform for online food and home product ordering. Included modules for login, product listing, cart, and order management with RESTful APIs.",
-      technologies: ["Java", "Spring Boot", "MySQL", "REST API","HTML","CSS"],
-      category: "fullstack",
-      github: "#",
-      demo: "#",
-      image: "./images/DineHome.jpeg",
-      status: "completed"
-    },
-    {
-      id: 2,
-      title: "AI-Based Resume Analyzer with Job Matching System",
-      description: "Developed an AI-powered web app that analyzes resumes and matches candidate skills with suitable job openings. Integrated resume parsing, skill extraction, and RESTful APIs for job recommendations. API for task management with real-time updates, user roles, and advanced filtering capabilities.",
-      technologies: ["Java", "Spring Boot", "MySql", "html", "css","javascript"],
-      category: "fullstack",
-      github: "#",
-      demo: "#",
-      image: "./images/CvAnalyZer.jpeg",
-      status: "completed"
-    },
-    {
-      id: 3,
-      title: "AI-CodeFixer chatBot",
-      description: "Detects bugs in code automatically Suggests fixes in ral-time Works across multiple programming languages Easy-to-use interface for student and  developers",
-      technologies: ["React", "Tailwind CSS", "Framer Motion", "Node.js"],
-      category: "fullstack",
-      github: "#",
-      demo: "#",
-      image: "./images/AiCodefixer.jpeg",
-      status: "completed"
-    },
-  ];
-
-  const filters = [
-    { id: "all", name: "All Projects" },
-    { id: "backend", name: "Backend" },
-    { id: "frontend", name: "Frontend" },
-    { id: "fullstack", name: "Full Stack" },
-    { id: "devops", name: "DevOps" }
-  ];
-
-  const filteredProjects = activeFilter === "all" 
-    ? projects 
-    : projects.filter(project => project.category === activeFilter);
-
-  useEffect(() => {
-  const handleMouseMove = (e) => {
-    if (!backgroundRef.current) return;
-    
-    const rect = backgroundRef.current.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    
-    backgroundRef.current.style.setProperty('--mouse-x', `${x}%`);
-    backgroundRef.current.style.setProperty('--mouse-y', `${y}%`);
-  };
-
-  // Add the glow class
-  if (backgroundRef.current) {
-    backgroundRef.current.classList.add('section-glow-effect');
-  }
-
-  window.addEventListener("mousemove", handleMouseMove);
-  return () => window.removeEventListener("mousemove", handleMouseMove);
-}, []);
-  const getStatusColor = (status) => {
-    switch (status) {
-      case "completed": return "text-green-400 bg-green-400/10 border-green-400";
-      case "in-progress": return "text-yellow-400 bg-yellow-400/10 border-yellow-400";
-      case "planned": return "text-blue-400 bg-blue-400/10 border-blue-400";
-      default: return "text-gray-400 bg-gray-400/10 border-gray-400";
-    }
-  };
-
-  const getStatusText = (status) => {
-    switch (status) {
-      case "completed": return "Completed";
-      case "in-progress": return "In Progress";
-      case "planned": return "Planned";
-      default: return "Unknown";
-    }
-  };
-
-  // Function to check if project has background image
-  const hasBackgroundImage = (project) => {
-    return project.title.includes('DineHome') || 
-           project.title.includes('Resume Analyzer') || 
-           project.title.includes('CodeFixer');
-  };
-
-  // Function to get background image path
-  const getBackgroundImage = (project) => {
-    if (project.title.includes('DineHome')) return "url('./images/DineHome.jpeg')";
-    if (project.title.includes('Resume Analyzer')) return "url('./images/CvAnalyZer.jpeg')";
-    if (project.title.includes('CodeFixer')) return "url('./images/AiCodefixer.jpeg')";
-    return "";
-    
-  };
+  const filtered = activeFilter === "all"
+    ? PROJECTS
+    : PROJECTS.filter((p) => p.category === activeFilter);
 
   return (
-    <section 
-      id="projects" 
-      className="relative min-h-screen overflow-hidden bg-black py-20"
+    <section
+      id="projects"
+      style={{ position: "relative", padding: "120px 24px", overflow: "hidden" }}
     >
-      {/* Background Elements - Fixed blur issues */}
-      <div 
-        ref={backgroundRef}
-        className="absolute inset-0 transition-transform duration-700 ease-out"
-        
-      >
-        {/* Binary Stream & Circuit Grid */}
-        <div className="absolute inset-0 bg-black">
-          <div className="binary-stream"></div>
-          <div className="circuit-grid"></div>
-        </div>
+      <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
 
-        {/* Floating Code Snippets */}
+        {/* Header */}
         <motion.div
-          className="floating-code code-1"
-          animate={{
-            y: [0, -35, 0],
-            rotateZ: [0, 4, 0],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        >
-          <div className="code-keyword">class</div>
-          <div className="code-function"> Project</div> {'{'}
-          <div className="code-comment">{"// プロジェクト詳細"}</div>
-          <div className="code-keyword">constructor</div>() {'{'}
-          <div className="code-keyword">this</div>.
-          <div className="code-function">tech</div> = [
-          <div className="code-string">"Java"</div>,
-          <div className="code-string">"Spring"</div>
-          ];
-          {'}'}
-        </motion.div>
-
-        <motion.div
-          className="floating-code code-2"
-          animate={{
-            y: [0, 28, 0],
-            rotateZ: [0, -3, 0],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        >
-          <div className="code-comment">{"/* コードを書く情熱 */"}</div>
-          <div className="code-keyword">public</div> 
-          <div className="code-function">void</div> 
-          <div className="code-function">develop</div>() {'{'}
-          <div className="code-comment">{"// 創造性と技術"}</div>
-          <div className="code-function">System.out.println</div>(
-          <div className="code-string">"Building amazing projects! 💻"</div>);
-          {'}'}
-        </motion.div>
-      </div>
-
-      {/* Data Particles */}
-      <div className="data-particle particle-1"></div>
-      <div className="data-particle particle-2"></div>
-      <div className="data-particle particle-3"></div>
-      <div className="data-particle particle-4"></div>
-
-      {/* Main Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 initial-load-fix">
-        {/* Section Header */}
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 50 }}
+          style={{ textAlign: "center", marginBottom: "60px" }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 1, ease: "easeOut" }}
+          transition={{ duration: 0.8 }}
         >
-          <motion.h2
-            className="text-5xl md:text-7xl font-bold mb-6 cyber-text anime-glow section-heading"
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
-          >
-            My Projects
-          </motion.h2>
-          
-          <motion.p
-            className="text-green-300 text-xl max-w-2xl mx-auto typewriter"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1, duration: 0.8 }}
-          >
-            A collection of projects that showcase my skills in backend development, 
-            system architecture, and modern web technologies.
-          </motion.p>
+          <div className="section-badge" style={{ justifyContent: "center" }}>
+            <span className="dot" />
+            Portfolio
+          </div>
+          <h2 className="section-title gradient-text" style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", marginBottom: "16px" }}>
+            Featured Projects
+          </h2>
+          <p style={{ color: "#64748b", maxWidth: "520px", margin: "0 auto", fontFamily: "'Inter',sans-serif", lineHeight: 1.7 }}>
+            {PROJECTS.length}+ projects spanning enterprise ERP systems, AI applications, and modern web platforms
+          </p>
         </motion.div>
 
         {/* Filter Buttons */}
         <motion.div
-          className="flex flex-wrap justify-center gap-4 mb-12"
-          initial={{ opacity: 0, y: 30 }}
+          style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap", marginBottom: "50px" }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.1, duration: 0.8 }}
+          transition={{ duration: 0.6 }}
         >
-          {filters.map((filter, index) => (
+          {CATEGORIES.map((cat) => (
             <motion.button
-              key={filter.id}
-              onClick={() => setActiveFilter(filter.id)}
-              className={`px-6 py-3 rounded-lg font-mono text-sm transition-all duration-300 border-2 ${
-                activeFilter === filter.id
-                  ? "text-blue-400 border-blue-400 bg-blue-400/10 hover-glow"
-                  : "text-green-400 border-green-400/30 hover:border-green-400 hover:bg-green-400/5"
-              }`}
-              whileHover={{ scale: 1.05, y: -2 }}
+              key={cat.id}
+              className={`project-category-btn ${activeFilter === cat.id ? "active" : ""}`}
+              onClick={() => setActiveFilter(cat.id)}
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 + index * 0.1, duration: 0.5 }}
             >
-              {filter.name}
+              {cat.icon} {cat.label}
             </motion.button>
           ))}
         </motion.div>
 
-        {/* Projects Grid */}
+        {/* Project Cards Grid */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeFilter}
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(3, 1fr)",
+              gap: "20px",
+            }}
+            className="projects-grid"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5 }}
+          >
+            {filtered.map((project, i) => (
+              <motion.div
+                key={project.id}
+                className="glass-card-project"
+                style={{ padding: "24px", cursor: "pointer" }}
+                initial={{ opacity: 0, y: 30, scale: 0.97 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ delay: i * 0.07, duration: 0.5 }}
+                onHoverStart={() => setHoveredCard(project.id)}
+                onHoverEnd={() => setHoveredCard(null)}
+                whileHover={{ y: -8, scale: 1.01 }}
+              >
+                {/* Card Header */}
+                <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "16px" }}>
+                  <motion.div
+                    className="project-icon-wrap"
+                    style={{
+                      background: `${project.color}18`,
+                      border: `1px solid ${project.color}35`,
+                    }}
+                    animate={hoveredCard === project.id ? { rotate: [0, -5, 5, 0] } : {}}
+                    transition={{ duration: 0.4 }}
+                  >
+                    <span style={{ fontSize: "1.6rem" }}>{project.icon}</span>
+                  </motion.div>
+                  <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "6px" }}>
+                    <div className="status-badge status-completed">
+                      <span style={{ width: "6px", height: "6px", background: "#22c55e", borderRadius: "50%", display: "inline-block" }} />
+                      Completed
+                    </div>
+                  </div>
+                </div>
+
+                {/* Project Image (if available) */}
+                {project.image && (
+                  <div style={{
+                    height: "100px", borderRadius: "10px", marginBottom: "14px",
+                    overflow: "hidden", position: "relative",
+                  }}>
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.7, borderRadius: "10px" }}
+                    />
+                    <div style={{
+                      position: "absolute", inset: 0,
+                      background: `linear-gradient(135deg, ${project.color}30, transparent)`,
+                      borderRadius: "10px",
+                    }} />
+                  </div>
+                )}
+
+                {/* Title */}
+                <h3 style={{
+                  fontFamily: "'Outfit',sans-serif",
+                  fontWeight: 700,
+                  fontSize: "1rem",
+                  color: "#e2e8f0",
+                  marginBottom: "10px",
+                  lineHeight: 1.4,
+                  transition: "color 0.3s ease",
+                }}>
+                  {project.title}
+                </h3>
+
+                {/* Description */}
+                <p style={{
+                  color: "#64748b",
+                  fontSize: "0.82rem",
+                  lineHeight: 1.65,
+                  fontFamily: "'Inter',sans-serif",
+                  marginBottom: "14px",
+                  display: "-webkit-box",
+                  WebkitLineClamp: 3,
+                  WebkitBoxOrient: "vertical",
+                  overflow: "hidden",
+                }}>
+                  {project.desc}
+                </p>
+
+                {/* Highlights */}
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "14px" }}>
+                  {project.highlights.map((h) => (
+                    <span key={h} style={{
+                      padding: "3px 10px",
+                      borderRadius: "100px",
+                      background: `${project.color}12`,
+                      border: `1px solid ${project.color}30`,
+                      color: project.color,
+                      fontFamily: "'Fira Code',monospace",
+                      fontSize: "0.68rem",
+                      fontWeight: 600,
+                    }}>
+                      {h}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Divider */}
+                <div style={{ height: "1px", background: "rgba(168,85,247,0.1)", margin: "12px 0" }} />
+
+                {/* Tech Stack */}
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+                  {project.tech.map((t) => (
+                    <span key={t} className="project-tag" style={{ fontSize: "0.68rem" }}>{t}</span>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Total Count */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          style={{ textAlign: "center", marginTop: "50px" }}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.1, duration: 0.5 }}
         >
-          {filteredProjects.map((project, index) => (
-            <motion.div
-              key={project.id}
-              className={`terminal-glass p-6 rounded-xl border-2 border-green-400/20 hover:border-green-400 transition-all duration-300 group cursor-pointer ${
-                hasBackgroundImage(project) ? 'project-with-bg' : ''
-              }`}
-              style={
-                hasBackgroundImage(project) 
-                  ? { 
-                      backgroundImage: getBackgroundImage(project),
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center',
-                      backgroundRepeat: 'no-repeat',
-                      position: 'relative'
-                    } 
-                  : {}
-              }
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 + index * 0.1, duration: 0.6 }}
-              whileHover={{ 
-                y: -8,
-                borderColor: "rgb(34 197 94)",
-                transition: { duration: 0.2 }
-              }}
-            >
-              {/* Dark overlay for better text readability on background image projects */}
-              {hasBackgroundImage(project) && (
-                <div className="absolute inset-0 bg-black/70 rounded-xl z-0" />
-              )}
-              
-              {/* Project Image - Only for projects without background images */}
-              {!hasBackgroundImage(project) && (
-                <motion.div
-                  className="relative overflow-hidden rounded-lg mb-4 bg-gray-800 h-48 flex items-center justify-center"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-green-400/10 to-blue-400/10 group-hover:from-green-400/20 group-hover:to-blue-400/20 transition-all duration-500" />
-                  
-                  {/* Status Badge */}
-                  <motion.div
-                    className={`absolute top-4 right-4 px-3 py-1 rounded-full border text-xs font-mono ${getStatusColor(project.status)}`}
-                    initial={{ scale: 0 }}
-                    whileInView={{ scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.1 + index * 0.1, duration: 0.5 }}
-                  >
-                    {getStatusText(project.status)}
-                  </motion.div>
-
-                  {/* Placeholder Icon */}
-                  <motion.div
-                    className="text-4xl text-green-400"
-                    whileHover={{ scale: 1.2, rotate: 5 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    {project.category === 'backend' && '⚙️'}
-                    {project.category === 'frontend' && '🎨'}
-                    {project.category === 'fullstack' && '🌐'}
-                    {project.category === 'devops' && '🚀'}
-                  </motion.div>
-                </motion.div>
-              )}
-
-              {/* Status Badge for projects with background images */}
-              {hasBackgroundImage(project) && (
-                <motion.div
-                  className={`absolute top-4 right-4 px-3 py-1 rounded-full border text-xs font-mono ${getStatusColor(project.status)} z-10`}
-                  initial={{ scale: 0 }}
-                  whileInView={{ scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.1 + index * 0.1, duration: 0.5 }}
-                >
-                  {getStatusText(project.status)}
-                </motion.div>
-              )}
-
-              {/* Project Content */}
-              <div className={`space-y-4 relative z-10 ${hasBackgroundImage(project) ? 'text-white' : ''}`}>
-                {/* Title */}
-                <motion.h3
-                  className={`text-xl font-bold group-hover:text-blue-400 transition-colors duration-300 ${
-                    hasBackgroundImage(project) ? 'text-white' : 'text-green-400'
-                  }`}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.1 + index * 0.1, duration: 0.5 }}
-                >
-                  {project.title}
-                </motion.h3>
-
-                {/* Description */}
-                <motion.p
-                  className={`text-sm leading-relaxed ${
-                    hasBackgroundImage(project) ? 'text-gray-200' : 'text-green-300'
-                  }`}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.1 + index * 0.1, duration: 0.5 }}
-                >
-                  {project.description}
-                </motion.p>
-
-                {/* Technologies */}
-                <motion.div
-                  className="flex flex-wrap gap-2"
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.1 + index * 0.1, duration: 0.5 }}
-                >
-                  {project.technologies.map((tech, techIndex) => (
-                    <motion.span
-                      key={tech}
-                      className={`px-3 py-1 border rounded-lg text-xs font-mono hover-glow ${
-                        hasBackgroundImage(project) 
-                          ? 'bg-white/20 border-white/30 text-white' 
-                          : 'bg-black border-green-400/30 text-green-400'
-                      }`}
-                      whileHover={{ 
-                        scale: 1.05, 
-                        backgroundColor: hasBackgroundImage(project) 
-                          ? "rgba(255, 255, 255, 0.3)" 
-                          : "rgba(0, 255, 136, 0.1)" 
-                      }}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.1 + index * 0.1 + techIndex * 0.05, duration: 0.3 }}
-                    >
-                      {tech}
-                    </motion.span>
-                  ))}
-                </motion.div>
-              </div>
-            </motion.div>
-          ))}
+          <p style={{ color: "#334155", fontFamily: "'Fira Code',monospace", fontSize: "0.82rem" }}>
+            Showing <span style={{ color: "#a855f7" }}>{filtered.length}</span> of{" "}
+            <span style={{ color: "#00f5ff" }}>{PROJECTS.length}</span> projects
+          </p>
         </motion.div>
       </div>
 
-      {/* Accent Animations */}
-      <motion.div
-        className="absolute top-1/4 right-12 w-1 h-24 bg-green-400 rounded-full"
-        animate={{
-          scaleY: [1, 2, 1],
-          opacity: [0.3, 1, 0.3],
-        }}
-        transition={{
-          duration: 2.5,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-      
-      <motion.div
-        className="absolute bottom-1/3 left-10 w-3 h-3 bg-blue-400 rounded-full"
-        animate={{
-          scale: [1, 2.2, 1],
-          opacity: [0.3, 1, 0.3],
-        }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 0.1
-        }}
-      />
-
-      {/* Additional Floating Elements */}
-      <motion.div
-        className="absolute top-32 right-20 w-8 h-8 border-2 border-green-400 rounded-full"
-        animate={{
-          rotate: 360,
-          scale: [1, 1.4, 1],
-        }}
-        transition={{
-          rotate: { duration: 18, repeat: Infinity, ease: "linear" },
-          scale: { duration: 6, repeat: Infinity, ease: "easeInOut" }
-        }}
-      />
-      
-      <motion.div
-        className="absolute bottom-40 left-24 w-6 h-6 border-2 border-blue-400 rotate-45"
-        animate={{
-          rotate: [45, 405, 45],
-          scale: [1, 1.3, 1],
-        }}
-        transition={{
-          duration: 12,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
+      <style>{`
+        @media (max-width: 1024px) {
+          .projects-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+        }
+        @media (max-width: 640px) {
+          .projects-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
     </section>
   );
 };
