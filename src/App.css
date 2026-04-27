@@ -1136,6 +1136,24 @@ a:focus-visible {
   animation-play-state: paused;
 }
 
+/* Idle state — shown before audio has started (mobile tap-to-start) */
+.bgm-btn--idle {
+  border-color: rgba(0, 245, 255, 0.55);
+  color: #00f5ff;
+  animation: bgmIdlePulse 1.5s ease-in-out infinite;
+}
+
+@keyframes bgmIdlePulse {
+  0%, 100% {
+    box-shadow: 0 0 14px rgba(0,245,255,0.3), 0 4px 20px rgba(0,0,0,0.5);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(0,245,255,0.65), 0 0 60px rgba(0,245,255,0.2), 0 4px 20px rgba(0,0,0,0.5);
+    transform: scale(1.08);
+  }
+}
+
 @keyframes bgmPulse {
   0%, 100% {
     box-shadow: 0 0 18px rgba(168,85,247,0.35), 0 4px 20px rgba(0,0,0,0.5);
