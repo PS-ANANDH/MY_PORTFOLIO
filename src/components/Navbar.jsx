@@ -169,54 +169,73 @@ const Navbar = () => {
       {/* Mobile Full-Screen Menu */}
       <AnimatePresence>
         {isMenuOpen && (
-          <motion.div
-            className="mobile-menu"
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 1.05 }}
-            transition={{ duration: 0.3 }}
-          >
-            <motion.button
+          <>
+            {/* Backdrop — tap outside menu panel to close */}
+            <motion.div
               style={{
-                position: "absolute", top: "24px", right: "24px",
-                background: "rgba(168,85,247,0.1)", border: "1px solid rgba(168,85,247,0.3)",
-                borderRadius: "10px", width: "44px", height: "44px",
-                color: "#a855f7", fontSize: "1.3rem", cursor: "pointer",
-                display: "flex", alignItems: "center", justifyContent: "center"
+                position: 'fixed', inset: 0, zIndex: 998,
+                background: 'rgba(0,0,0,0.55)',
+                backdropFilter: 'blur(4px)',
+                WebkitBackdropFilter: 'blur(4px)',
               }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
               onClick={() => setIsMenuOpen(false)}
-              whileTap={{ scale: 0.9 }}
-            >
-              ✕
-            </motion.button>
+            />
 
-            {navItems.map((item, i) => (
-              <motion.a
-                key={item.name}
-                href={item.href}
-                className={`mobile-nav-link ${activeSection === item.section ? "active" : ""}`}
-                onClick={(e) => { e.preventDefault(); scrollTo(item.href); }}
-                initial={{ opacity: 0, x: -40 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.1 }}
-                whileHover={{ x: 12 }}
+            {/* Menu panel */}
+            <motion.div
+              className="mobile-menu"
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'tween', duration: 0.3, ease: 'easeInOut' }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <motion.button
+                style={{
+                  position: "absolute", top: "24px", right: "24px",
+                  background: "rgba(168,85,247,0.1)", border: "1px solid rgba(168,85,247,0.3)",
+                  borderRadius: "10px", width: "44px", height: "44px",
+                  color: "#a855f7", fontSize: "1.3rem", cursor: "pointer",
+                  display: "flex", alignItems: "center", justifyContent: "center"
+                }}
+                onClick={() => setIsMenuOpen(false)}
+                whileTap={{ scale: 0.9 }}
               >
-                {item.name}
-              </motion.a>
-            ))}
+                ✕
+              </motion.button>
 
-            <motion.button
-              className="hire-btn"
-              onClick={() => { scrollTo("#contact"); setIsMenuOpen(false); }}
-              style={{ marginTop: "24px", fontSize: "1.1rem", padding: "16px 40px" }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              whileHover={{ scale: 1.05 }}
-            >
-              Hire Me ⚡
-            </motion.button>
-          </motion.div>
+              {navItems.map((item, i) => (
+                <motion.a
+                  key={item.name}
+                  href={item.href}
+                  className={`mobile-nav-link ${activeSection === item.section ? "active" : ""}`}
+                  onClick={(e) => { e.preventDefault(); scrollTo(item.href); }}
+                  initial={{ opacity: 0, x: -40 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                  whileHover={{ x: 12 }}
+                >
+                  {item.name}
+                </motion.a>
+              ))}
+
+              <motion.button
+                className="hire-btn"
+                onClick={() => { scrollTo("#contact"); setIsMenuOpen(false); }}
+                style={{ marginTop: "24px", fontSize: "1.1rem", padding: "16px 40px" }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                whileHover={{ scale: 1.05 }}
+              >
+                Hire Me ⚡
+              </motion.button>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
 

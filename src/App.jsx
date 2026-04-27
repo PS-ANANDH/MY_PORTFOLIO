@@ -31,85 +31,81 @@ const ScrollTopBtn = memo(({ onClick }) => (
 function App() {
   const [showScrollTop, setShowScrollTop] = React.useState(false);
   const [isMuted, setIsMuted] = useState(false);
-  const [bgmStarted, setBgmStarted] = useState(false);
-  const audioRef = useRef(null);
-  // Use a ref to track started state without stale closures inside event handlers
-  const bgmStartedRef = useRef(false);
 
-  // Use Framer Motion's built-in scroll tracking — no JS setInterval needed
+  // Refs — no stale closures, no re-render overhead
+  const audioRef      = useRef(null);
+  const startedRef    = useRef(false);   // has audio.play() succeeded?
+  const listenersRef  = useRef([]);      // keep track of gesture listeners to clean up
+
+  // Scroll progress bar
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 300, damping: 40, restDelta: 0.001 });
 
-  // BGM setup — mobile-safe audio unlock pattern
   useEffect(() => {
+    // ── Create audio element ──────────────────────────────────────
     const audio = new Audio('/song.mp3');
-    audio.loop = true;
-    audio.volume = 0.35;
+    audio.loop    = true;
+    audio.volume  = 0.35;
     audio.preload = 'auto';
     audioRef.current = audio;
 
+    // ── Core start function ───────────────────────────────────────
+    // Must be called synchronously inside a trusted gesture on mobile.
     const startAudio = () => {
-      if (bgmStartedRef.current) return;
-      // play() must be called synchronously in a gesture handler to work on mobile
+      if (startedRef.current) return;
       audio.play()
-        .then(() => {
-          bgmStartedRef.current = true;
-          setBgmStarted(true);
-        })
-        .catch(() => {});
+        .then(() => { startedRef.current = true; })
+        .catch(() => {
+          // play() rejected — browser still blocking, wait for next gesture
+        });
     };
 
-    // 1. Try autoplay immediately (works on desktop)
+    // ── 1. Try immediate autoplay (desktop Chrome/Firefox) ────────
     startAudio();
 
-    // 2. Mobile fallback: unlock on ANY first user gesture
-    //    { once: true } auto-removes the listener after first fire
-    const gestureOpts = { once: true, passive: true };
-    document.addEventListener('touchstart', startAudio, gestureOpts);
-    document.addEventListener('touchend',   startAudio, gestureOpts);
-    document.addEventListener('click',      startAudio, gestureOpts);
-    document.addEventListener('keydown',    startAudio, gestureOpts);
+    // ── 2. Mobile unlock: register on every trusted gesture type ──
+    // touchstart fires before click, so it catches scroll-begins too.
+    // { once: true } auto-removes each listener after it fires once.
+    const events = ['touchstart', 'touchend', 'pointerdown', 'click', 'keydown'];
+    const opts   = { once: true, passive: true };
+
+    events.forEach(evt => {
+      document.addEventListener(evt, startAudio, opts);
+    });
+
+    // Store for cleanup (in case component unmounts before any gesture)
+    listenersRef.current = events;
 
     return () => {
       audio.pause();
       audio.src = '';
-      // Clean up in case { once } hasn't fired yet
-      document.removeEventListener('touchstart', startAudio);
-      document.removeEventListener('touchend',   startAudio);
-      document.removeEventListener('click',      startAudio);
-      document.removeEventListener('keydown',    startAudio);
+      events.forEach(evt => document.removeEventListener(evt, startAudio));
     };
   }, []);
 
-  // Sync mute state with audio element
+  // Sync mute with audio element
   useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.muted = isMuted;
-    }
+    if (audioRef.current) audioRef.current.muted = isMuted;
   }, [isMuted]);
 
-  // On mobile the 🎵 button IS the first gesture — start + toggle mute
+  // Toggle mute — if audio hasn't started yet (mobile), this tap starts it too
   const toggleMute = useCallback(() => {
     const audio = audioRef.current;
     if (!audio) return;
-    if (!bgmStartedRef.current) {
-      // First tap on mobile: start the audio synchronously inside this gesture
+
+    if (!startedRef.current) {
+      // This click/tap IS the trusted gesture — start audio right here
       audio.play()
-        .then(() => {
-          bgmStartedRef.current = true;
-          setBgmStarted(true);
-        })
+        .then(() => { startedRef.current = true; })
         .catch(() => {});
-    } else {
-      setIsMuted(prev => !prev);
     }
+    // Always toggle mute regardless (so button feels instant)
+    setIsMuted(prev => !prev);
   }, []);
 
-  // Debounced scroll listener — passive, no rerender per pixel
+  // Scroll-to-top visibility
   useEffect(() => {
-    const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 500);
-    };
+    const handleScroll = () => setShowScrollTop(window.scrollY > 500);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -127,7 +123,7 @@ function App() {
       <div className="grid-bg" />
       <div className="noise-overlay" />
 
-      {/* Scroll Progress Bar — driven by Framer spring, GPU only */}
+      {/* Scroll Progress Bar */}
       <motion.div className="scroll-progress" style={{ scaleX, transformOrigin: 'left' }} />
 
       <Navbar />
@@ -145,19 +141,19 @@ function App() {
 
       <Footer />
 
-      {/* Floating BGM Button — tap to start on mobile, then mute/unmute */}
+      {/* BGM Mute / Unmute Button — always 🎵 or 🔇, never a play button */}
       <motion.button
-        className={`bgm-btn${!bgmStarted ? ' bgm-btn--idle' : ''}`}
+        className="bgm-btn"
         onClick={toggleMute}
-        title={!bgmStarted ? 'Tap to play BGM' : isMuted ? 'Unmute BGM' : 'Mute BGM'}
-        aria-label={!bgmStarted ? 'Tap to start background music' : isMuted ? 'Unmute background music' : 'Mute background music'}
+        title={isMuted ? 'Unmute BGM' : 'Mute BGM'}
+        aria-label={isMuted ? 'Unmute background music' : 'Mute background music'}
         initial={{ opacity: 0, scale: 0 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.8, type: 'spring', stiffness: 200 }}
         whileHover={{ scale: 1.15 }}
         whileTap={{ scale: 0.9 }}
       >
-        {!bgmStarted ? '▶' : isMuted ? '🔇' : '🎵'}
+        {isMuted ? '🔇' : '🎵'}
       </motion.button>
 
       <AnimatePresence>
