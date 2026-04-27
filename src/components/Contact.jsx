@@ -35,7 +35,7 @@ const Contact = () => {
     { icon: "📧", label: "Email",    value: "selvaanandh8@gmail.com", href: "mailto:selvaanandh8@gmail.com", color: "#a855f7" },
     { icon: "📞", label: "Phone",    value: "+91 6383025180",            href: "tel:+91 6383025180",               color: "#00f5ff" },
     { icon: "💬", label: "WhatsApp", value: "Chat directly", href: "https://wa.me/916383025180?text=Hello%20Selva!%20I%20reviewed%20your%20impressive%20portfolio.%20Let's%20discuss%20an%20exciting%20career%20opportunity%20we%20have%20for%20you!", color: "#22c55e" },
-    { icon: "💼", label: "LinkedIn", value: "linkedin.com/in/selva-anandh", href: "https://www.linkedin.com/in/selva-anandh-p-2b5781293", color: "#3b82f6" },
+    { icon: "💼", label: "LinkedIn", value: "linkedin.com/in/selva-anandh", href: "https://www.linkedin.com/in/selva-anandh-p", color: "#3b82f6" },
     { icon: "🐙", label: "GitHub",   value: "github.com/PS-ANANDH",   href: "https://github.com",              color: "#f472b6" },
     { icon: "📍", label: "Location", value: "Srivilliputtur, Tamil Nadu 🇮🇳", href: "https://maps.google.com/?q=Srivilliputtur,Tamil+Nadu,India", color: "#fbbf24" },
   ];

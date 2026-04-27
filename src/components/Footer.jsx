@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const Footer = () => {
   const socials = [
-    { label: "LinkedIn",    icon: "💼", href: "https://www.linkedin.com/in/selva-anandh-p-2b5781293", color: "#3b82f6" },
+    { label: "LinkedIn",    icon: "💼", href: "https://www.linkedin.com/in/selva-anandh-p", color: "#3b82f6" },
     { label: "GitHub",      icon: "🐙", href: "https://github.com",                                    color: "#e2e8f0" },
     { label: "Email",       icon: "📧", href: "mailto:selvaanandh8@gmail.com",                       color: "#a855f7" },
     { label: "Phone",       icon: "📞", href: "tel:+91 6383025180",                                     color: "#22c55e" },
