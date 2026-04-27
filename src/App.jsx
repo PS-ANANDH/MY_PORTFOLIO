@@ -31,6 +31,7 @@ const ScrollTopBtn = memo(({ onClick }) => (
 function App() {
   const [showScrollTop, setShowScrollTop] = React.useState(false);
   const [isMuted, setIsMuted] = useState(false);
+  const [entered, setEntered] = useState(false); // Controls the entry overlay
 
   // Refs — no stale closures, no re-render overhead
   const audioRef      = useRef(null);
@@ -49,40 +50,9 @@ function App() {
     audio.preload = 'auto';
     audioRef.current = audio;
 
-    // ── Core start function ───────────────────────────────────────
-    // Must be called synchronously inside a trusted gesture on mobile.
-    const startAudio = () => {
-      if (startedRef.current) return;
-      audio.play()
-        .then(() => { startedRef.current = true; })
-        .catch(() => {
-          // play() rejected — browser still blocking, wait for next gesture
-        });
-    };
-
-    // ── 1. Try immediate autoplay (desktop Chrome/Firefox) ────────
-    startAudio();
-
-    // ── 2. Mobile unlock: register on every trusted gesture type ──
-    // DO NOT use { once: true }. If Safari blocks a weak 'touchstart' (like scrolling),
-    // { once: true } would destroy the listener and music would never start on tap.
-    // Instead, keep trying until play() succeeds.
-    const events = ['touchstart', 'touchend', 'pointerdown', 'click', 'keydown'];
-    
-    // We add listeners without { once: true }. 
-    // They will just return immediately if startedRef.current is true.
-    const opts = { passive: true };
-
-    events.forEach(evt => {
-      document.addEventListener(evt, startAudio, opts);
-    });
-
-    listenersRef.current = [...events];
-
     return () => {
       audio.pause();
       audio.src = '';
-      listenersRef.current.forEach(evt => document.removeEventListener(evt, startAudio, opts));
     };
   }, []);
 
@@ -123,6 +93,81 @@ function App() {
 
   return (
     <div style={{ position: 'relative', background: '#050510', minHeight: '100vh' }}>
+      
+      {/* ── ENTRY SCREEN OVERLAY ── */}
+      <AnimatePresence>
+        {!entered && (
+          <motion.div
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0, backdropFilter: 'blur(0px)' }}
+            transition={{ duration: 1, ease: 'easeInOut' }}
+            style={{
+              position: 'fixed',
+              inset: 0,
+              zIndex: 9999,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: 'rgba(5, 5, 16, 0.9)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+            }}
+          >
+            <motion.h1 
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.2 }}
+              className="section-title gradient-text"
+              style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', marginBottom: '1.5rem', textAlign: 'center', padding: '0 20px' }}
+            >
+              Selva Anandh
+            </motion.h1>
+            <motion.p
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.3 }}
+              style={{ color: '#94a3b8', fontFamily: "'Fira Code', monospace", marginBottom: '40px', fontSize: '0.9rem' }}
+            >
+              Interactive Portfolio Experience
+            </motion.p>
+            <motion.button
+              initial={{ y: 20, opacity: 0, scale: 0.9 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ delay: 0.4 }}
+              onClick={() => {
+                const audio = audioRef.current;
+                if (audio) {
+                  audio.play()
+                    .then(() => { startedRef.current = true; setIsMuted(false); })
+                    .catch(() => {});
+                }
+                setEntered(true);
+              }}
+              style={{
+                padding: '16px 40px',
+                fontSize: '1.1rem',
+                fontFamily: "'Outfit', sans-serif",
+                fontWeight: '700',
+                background: 'linear-gradient(135deg, #a855f7, #00f5ff)',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '50px',
+                cursor: 'pointer',
+                boxShadow: '0 0 30px rgba(168,85,247,0.4)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px'
+              }}
+            >
+              Enter Experience <span>🎵</span>
+            </motion.button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Static background — CSS-only, no JS animation cost */}
       <div className="orb orb-1" />
       <div className="orb orb-2" />
