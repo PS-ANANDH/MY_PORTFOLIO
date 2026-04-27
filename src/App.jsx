@@ -99,11 +99,15 @@ function App() {
     if (!startedRef.current) {
       // This click/tap IS the trusted gesture — start audio right here
       audio.play()
-        .then(() => { startedRef.current = true; })
+        .then(() => { 
+          startedRef.current = true; 
+          setIsMuted(false); // Make sure it plays out loud, don't instantly mute it!
+        })
         .catch(() => {});
+    } else {
+      // Audio is already active, so just toggle the mute state normally
+      setIsMuted(prev => !prev);
     }
-    // Always toggle mute regardless (so button feels instant)
-    setIsMuted(prev => !prev);
   }, []);
 
   // Scroll-to-top visibility
