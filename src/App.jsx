@@ -64,22 +64,25 @@ function App() {
     startAudio();
 
     // ── 2. Mobile unlock: register on every trusted gesture type ──
-    // touchstart fires before click, so it catches scroll-begins too.
-    // { once: true } auto-removes each listener after it fires once.
+    // DO NOT use { once: true }. If Safari blocks a weak 'touchstart' (like scrolling),
+    // { once: true } would destroy the listener and music would never start on tap.
+    // Instead, keep trying until play() succeeds.
     const events = ['touchstart', 'touchend', 'pointerdown', 'click', 'keydown'];
-    const opts   = { once: true, passive: true };
+    
+    // We add listeners without { once: true }. 
+    // They will just return immediately if startedRef.current is true.
+    const opts = { passive: true };
 
     events.forEach(evt => {
       document.addEventListener(evt, startAudio, opts);
     });
 
-    // Store for cleanup (in case component unmounts before any gesture)
-    listenersRef.current = events;
+    listenersRef.current = [...events];
 
     return () => {
       audio.pause();
       audio.src = '';
-      events.forEach(evt => document.removeEventListener(evt, startAudio));
+      listenersRef.current.forEach(evt => document.removeEventListener(evt, startAudio, opts));
     };
   }, []);
 
