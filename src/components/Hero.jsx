@@ -337,7 +337,6 @@ const Hero = () => {
 
       <style>{`
         @media (max-width: 768px) {
-          .ring-decor { display: none; }
           .hero-float-icon { display: none; }
         }
         @media (max-width: 640px) {
